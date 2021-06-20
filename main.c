@@ -6,7 +6,7 @@
 /*   By: mhaddi <mhaddi@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/20 19:48:52 by mhaddi            #+#    #+#             */
-/*   Updated: 2021/06/20 23:16:26 by mhaddi           ###   ########.fr       */
+/*   Updated: 2021/06/21 00:34:00 by mhaddi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 
 typedef struct s_stack {
 	int *values;
-	size_t size;
+	int size;
 	int top;
 } t_stack;
 
@@ -138,7 +138,8 @@ int main(int argc, char **argv)
 	t_stack stack_b;
 	size_t stack_size;
 
-	/* TO-DO: check if all arguments are valid
+	// TO-DO: consider using pop and push inside of swap and rotate, if current ones are slow.
+	/* TO-DO: check if all arguments are valid:
 	 * - if no arguments
 	 * - if argument isn't int
 	 * - if argument is overflow/underflow
@@ -147,11 +148,21 @@ int main(int argc, char **argv)
 	// TO-DO: free stacks before all exits
 	// TO-DO: replace atoi
 	// TO-DO: make immutable variables const
-	// TO-DO: when pop and push check if stacks are empty
+	/* TO-DO: when pop and push check if stacks are empty:
+	 * - if pop returns false don't push
+	 */
 
 	stack_size = argc - 1;
 	stack_a = create_stack(stack_size);
 	stack_b = create_stack(stack_size);
-
 	populate_stack(&stack_a, argv);
+
+	// sort(&stack_a, &stack_b);
+
+	// while (stack_b.top != EMPTY)
+	//	push(&stack_a, pop(&stack_b).value);
+	// TO-DO: print both stacks to check
+	// while (stack_a.top != EMPTY)
+	//	printf("%d\n", pop(&stack_a).value); // TO-DO: rmv printf
+	// TO-DO: sort into stack a (b empty)
 }
