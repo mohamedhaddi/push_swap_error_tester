@@ -6,7 +6,7 @@
 /*   By: mhaddi <mhaddi@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/20 19:48:52 by mhaddi            #+#    #+#             */
-/*   Updated: 2021/06/22 17:22:47 by mhaddi           ###   ########.fr       */
+/*   Updated: 2021/06/22 18:24:43 by mhaddi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void rotate_down(t_stack *stack)
 	
 	i = 0;
 	tmp = stack->values[i];
-	while (i < stack->size - 1)
+	while (i < stack->top)
 	{
 		stack->values[i] = stack->values[i + 1];
 		i++;
@@ -161,12 +161,14 @@ void print_stack(char* stack_name, t_stack stack)
 	printf("\n");
 }
 
+/*
 void	sort(t_stack *stack_a, t_stack *stack_b)
 {
-	int first_stack_a_top = stack_a->top;
+	int first_stack_a_top_value = stack_a->values[stack_a->top];
 
 	print_stack("A", *stack_a);
 	print_stack("B", *stack_b);
+	printf("***\n\n");
 
 	while (stack_a->top != EMPTY)
 	{
@@ -186,15 +188,20 @@ void	sort(t_stack *stack_a, t_stack *stack_b)
 
 	print_stack("A", *stack_a);
 	print_stack("B", *stack_b);
+	printf("***\n\n");
 
-	while (stack_b->top != first_stack_a_top)
+	while (stack_b->top != EMPTY)
 	{
 		rotate_down(stack_b);
+		int stack_b_top_value = stack_b->values[stack_b->top];
 		push(stack_a, pop(stack_b).value);
+		if (stack_b_top_value == first_stack_a_top_value)
+			break ;
 	}
 
 	print_stack("A", *stack_a);
 	print_stack("B", *stack_b);
+	printf("***\n\n");
 
 	int push_count = 0;
 	while (stack_a->top != EMPTY)
@@ -209,6 +216,7 @@ void	sort(t_stack *stack_a, t_stack *stack_b)
 
 	print_stack("A", *stack_a);
 	print_stack("B", *stack_b);
+	printf("***\n\n");
 
 	while (push_count--)
 		rotate_up(stack_b);
@@ -221,7 +229,9 @@ void	sort(t_stack *stack_a, t_stack *stack_b)
 
 	print_stack("A", *stack_a);
 	print_stack("B", *stack_b);
+	printf("***\n\n");
 }
+*/
 
 int main(int argc, char **argv)
 {
@@ -248,7 +258,7 @@ int main(int argc, char **argv)
 	stack_b = create_stack(stack_size);
 	populate_stack(&stack_a, argv);
 
-	sort(&stack_a, &stack_b);
+	//sort(&stack_a, &stack_b);
 
 	// while (stack_b.top != EMPTY)
 	//	push(&stack_a, pop(&stack_b).value);
