@@ -6,7 +6,7 @@
 /*   By: mhaddi <mhaddi@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/20 19:48:52 by mhaddi            #+#    #+#             */
-/*   Updated: 2021/06/22 18:24:43 by mhaddi           ###   ########.fr       */
+/*   Updated: 2021/06/22 18:37:29 by mhaddi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,6 +152,18 @@ void sort(t_stack *stack_a, t_stack *stack_b)
 }
 */
 
+bool is_sorted(t_stack stack)
+{
+	int i = 0;
+	while (i < stack.top)
+	{
+		if (stack.values[i] < stack.values[i + 1])
+			return false;
+		i++;
+	}
+	return true;
+}
+
 void print_stack(char* stack_name, t_stack stack)
 {
 	while (stack.top != EMPTY)
@@ -161,7 +173,6 @@ void print_stack(char* stack_name, t_stack stack)
 	printf("\n");
 }
 
-/*
 void	sort(t_stack *stack_a, t_stack *stack_b)
 {
 	int first_stack_a_top_value = stack_a->values[stack_a->top];
@@ -231,7 +242,6 @@ void	sort(t_stack *stack_a, t_stack *stack_b)
 	print_stack("B", *stack_b);
 	printf("***\n\n");
 }
-*/
 
 int main(int argc, char **argv)
 {
@@ -258,7 +268,8 @@ int main(int argc, char **argv)
 	stack_b = create_stack(stack_size);
 	populate_stack(&stack_a, argv);
 
-	//sort(&stack_a, &stack_b);
+	while (!is_sorted(stack_a))
+		sort(&stack_a, &stack_b);
 
 	// while (stack_b.top != EMPTY)
 	//	push(&stack_a, pop(&stack_b).value);
