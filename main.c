@@ -6,7 +6,7 @@
 /*   By: mhaddi <mhaddi@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/20 19:48:52 by mhaddi            #+#    #+#             */
-/*   Updated: 2021/06/22 23:33:08 by mhaddi           ###   ########.fr       */
+/*   Updated: 2021/06/23 00:39:18 by mhaddi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -182,8 +182,8 @@ void	sort(t_stack *stack_a, t_stack *stack_b)
 	printf("***\n\n");
 	*/
 
-	push(stack_b, pop(stack_a).value);
-	printf("pb\n");
+	//push(stack_b, pop(stack_a).value);
+	//printf("pb\n");
 	while (stack_a->top != EMPTY)
 	{
 		push(stack_b, pop(stack_a).value);
@@ -203,18 +203,18 @@ void	sort(t_stack *stack_a, t_stack *stack_b)
 	printf("***\n\n");
 	*/
 
-	push(stack_a, pop(stack_b).value);
-	printf("pa\n");
+	//push(stack_a, pop(stack_b).value);
+	//printf("pa\n");
 	while (stack_b->top != EMPTY)
 	{
-		if (stack_b->top > 0
-			&& stack_b->values[stack_b->top] < stack_b->values[stack_b->top - 1])
-		{
-			swap(stack_b);
-			printf("sb\n");
-		}
 		push(stack_a, pop(stack_b).value);
 		printf("pa\n");
+		if (stack_a->top > 0
+			&& stack_a->values[stack_a->top] > stack_a->values[stack_a->top - 1])
+		{
+			swap(stack_a);
+			printf("sb\n");
+		}
 	}
 
 	/*
