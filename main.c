@@ -6,7 +6,7 @@
 /*   By: mhaddi <mhaddi@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/20 19:48:52 by mhaddi            #+#    #+#             */
-/*   Updated: 2021/06/23 00:39:18 by mhaddi           ###   ########.fr       */
+/*   Updated: 2021/06/23 03:28:21 by mhaddi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,25 +132,43 @@ void populate_stack(t_stack *stack, char **values)
 	}
 }
 
-/*
 void sort(t_stack *stack_a, t_stack *stack_b)
 {
-	while (stack_a->top != EMPTY)
+	int size = stack_a->size;
+	int max_num = size - 1;
+	int max_bits = 0;
+
+	while ((max_num >> max_bits) != 0) ++max_bits;
+
+	int i = 0;
+	while (i < max_bits)
 	{
-		if (stack_a->top > 0)
+		int j = 0;
+		while (j < size)
 		{
-			if (stack_a->values[stack_a->top] > stack_a->values[stack_a->top - 1])
-				swap(stack_a);
-			while (stack_a->top > 0 && stack_a->values[stack_a->top] < stack_a->values[stack_a->top - 1])
+			int num = stack_a->values[stack_a->top];
+			if (((num >> i) & 1) == 1)
+			{
+				rotate_up(stack_a);
+				printf("ra\n");
+			}
+			else
+			{
 				push(stack_b, pop(stack_a).value);
+				printf("pb\n");
+			}
+			j++;
 		}
-		else
-			push(stack_b, pop(stack_a).value);
+
+		while (stack_b->top != EMPTY)
+		{
+			push(stack_a, pop(stack_b).value);
+			printf("pa\n");
+		}
+
+		i++;
 	}
-	while (stack_b->top != EMPTY)
-		push(stack_a, pop(stack_b).value);
 }
-*/
 
 bool is_sorted(t_stack stack)
 {
@@ -173,236 +191,33 @@ void print_stack(char* stack_name, t_stack stack)
 	printf("\n");
 }
 
-void	sort(t_stack *stack_a, t_stack *stack_b)
+void	simplify_stack(t_stack *stack)
 {
-	/*
-	printf("\n");
-	print_stack("A", *stack_a);
-	print_stack("B", *stack_b);
-	printf("***\n\n");
-	*/
+	int val;
+	int new_arr[stack->size]; // malloc
 
-	//push(stack_b, pop(stack_a).value);
-	//printf("pb\n");
-	while (stack_a->top != EMPTY)
+	int i = 0;
+	while (i < stack->size)
 	{
-		push(stack_b, pop(stack_a).value);
-		printf("pb\n");
-		if (stack_b->top > 0
-			&& stack_b->values[stack_b->top] < stack_b->values[stack_b->top - 1])
+		int j = 0;
+		val = 0;
+		while (j < stack->size)
 		{
-			swap(stack_b);
-			printf("sb\n");
+			if (stack->values[i] > stack->values[j])
+				val++;
+			j++;
 		}
+		new_arr[i] = val;
+		i++;
 	}
 
-	/*
-	printf("\n");
-	print_stack("A", *stack_a);
-	print_stack("B", *stack_b);
-	printf("***\n\n");
-	*/
-
-	//push(stack_a, pop(stack_b).value);
-	//printf("pa\n");
-	while (stack_b->top != EMPTY)
+	i = 0;
+	while (i < stack->size)
 	{
-		push(stack_a, pop(stack_b).value);
-		printf("pa\n");
-		if (stack_a->top > 0
-			&& stack_a->values[stack_a->top] > stack_a->values[stack_a->top - 1])
-		{
-			swap(stack_a);
-			printf("sb\n");
-		}
+		stack->values[i] = new_arr[i];
+		i++;
 	}
-
-	/*
-	printf("\n");
-	print_stack("A", *stack_a);
-	print_stack("B", *stack_b);
-	printf("***\n\n");
-	*/
 }
-
-/*
-void	sort(t_stack *stack_a, t_stack *stack_b)
-{
-	printf("\n");
-	print_stack("A", *stack_a);
-	print_stack("B", *stack_b);
-	printf("***\n\n");
-
-	while (stack_a->top != EMPTY)
-	{
-		while (stack_a->top > 0
-				&& stack_a->values[stack_a->top] > stack_a->values[stack_a->top - 1])
-		{
-			rotate_down(stack_a);
-			printf("rra\n");
-		}
-		if (stack_a->top > 0
-				&& stack_a->values[stack_a->top] < stack_a->values[stack_a->top - 1])
-		{
-			push(stack_b, pop(stack_a).value);
-			printf("pb\n");
-		}
-		if (stack_b->top > 0
-				&& stack_b->values[stack_b->top] < stack_b->values[stack_b->top - 1])
-		{
-			rotate_up(stack_b);
-			printf("rb\n");
-		}
-		if (stack_a->top == 0)
-		{
-			push(stack_b, pop(stack_a).value);
-			printf("pb\n");
-		}
-	}
-
-	printf("\n");
-	print_stack("A", *stack_a);
-	print_stack("B", *stack_b);
-	printf("***\n\n");
-
-	push(stack_a, pop(stack_b).value);
-	while (stack_b->top != EMPTY)
-	{
-		while (stack_b->values[stack_b->top] > stack_a->values[stack_a->top])
-		{
-			rotate_up(stack_b);
-			//printf("rb\n");
-		}
-		push(stack_a, pop(stack_b).value);
-		printf("pa\n");
-	}
-
-	printf("\n");
-	print_stack("A", *stack_a);
-	print_stack("B", *stack_b);
-	printf("***\n\n");
-
-	while (stack_a->top != EMPTY)
-	{
-		push(stack_b, pop(stack_a).value);
-		printf("pb\n");
-		if (stack_b->top > 0
-				&& stack_b->values[stack_b->top] < stack_b->values[stack_b->top - 1])
-		{
-			swap(stack_b);
-			printf("sb\n");
-		}
-	}
-
-	printf("\n");
-	print_stack("A", *stack_a);
-	print_stack("B", *stack_b);
-	printf("***\n\n");
-
-	while (stack_b->top != EMPTY)
-		push(stack_a, pop(stack_b).value);
-
-	printf("\n");
-	print_stack("A", *stack_a);
-	print_stack("B", *stack_b);
-	printf("***\n\n");
-}
-*/
-
-/*
-void	sort(t_stack *stack_a, t_stack *stack_b)
-{
-	int first_stack_a_top_value = stack_a->values[stack_a->top];
-
-	print_stack("A", *stack_a);
-	print_stack("B", *stack_b);
-	printf("***\n\n");
-
-	while (stack_a->top != EMPTY)
-	{
-		rotate_down(stack_a);
-		printf("rra\n");
-		if (stack_a->top > 0
-			&& stack_a->values[stack_a->top] > stack_a->values[stack_a->top - 1])
-		{
-			swap(stack_a);
-			printf("sa\n");
-		}
-		if (stack_b->top != EMPTY
-			&& stack_a->values[stack_a->top] > stack_b->values[stack_b->top])
-		{
-			push(stack_b, pop(stack_a).value);
-			printf("pb\n");
-		}
-		else
-		{
-			push(stack_b, pop(stack_a).value);
-			printf("pb\n");
-			rotate_up(stack_b);
-			printf("rb\n");
-		}
-	}
-
-	print_stack("A", *stack_a);
-	print_stack("B", *stack_b);
-	printf("***\n\n");
-
-	while (stack_b->top != EMPTY)
-	{
-		rotate_down(stack_b);
-		printf("rrb\n");
-		int stack_b_top_value = stack_b->values[stack_b->top];
-		push(stack_a, pop(stack_b).value);
-		printf("pa\n");
-		if (stack_b_top_value == first_stack_a_top_value)
-			break ;
-	}
-
-	print_stack("A", *stack_a);
-	print_stack("B", *stack_b);
-	printf("***\n\n");
-
-	int push_count = 0;
-	while (stack_a->top != EMPTY)
-	{
-		rotate_down(stack_a);
-		printf("rra\n");
-		if (stack_a->top > 0
-			&& stack_a->values[stack_a->top] > stack_a->values[stack_a->top - 1])
-		{
-			swap(stack_a);
-			printf("sa\n");
-		}
-		push(stack_b, pop(stack_a).value);
-		printf("pb\n");
-		push_count++;
-	}
-
-	print_stack("A", *stack_a);
-	print_stack("B", *stack_b);
-	printf("***\n\n");
-
-	while (push_count--)
-	{
-		rotate_up(stack_b);
-		printf("rb\n");
-	}
-
-	print_stack("A", *stack_a);
-	print_stack("B", *stack_b);
-	printf("***\n\n");
-
-	while (stack_b->top != EMPTY)
-	{
-		push(stack_a, pop(stack_b).value);
-		printf("pa\n");
-	}
-
-	print_stack("A", *stack_a);
-	print_stack("B", *stack_b);
-	printf("***\n\n");
-}
-*/
 
 int main(int argc, char **argv)
 {
@@ -428,9 +243,11 @@ int main(int argc, char **argv)
 	stack_a = create_stack(stack_size);
 	stack_b = create_stack(stack_size);
 	populate_stack(&stack_a, argv);
+	simplify_stack(&stack_a);
 
-	while (!is_sorted(stack_a))
-		sort(&stack_a, &stack_b);
+	sort(&stack_a, &stack_b);
+
+	//print_stack("A", stack_a);
 
 	// while (stack_b.top != EMPTY)
 	//	push(&stack_a, pop(&stack_b).value);
