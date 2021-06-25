@@ -6,7 +6,7 @@
 /*   By: mhaddi <mhaddi@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/20 19:48:52 by mhaddi            #+#    #+#             */
-/*   Updated: 2021/06/24 03:40:18 by mhaddi           ###   ########.fr       */
+/*   Updated: 2021/06/25 01:52:47 by mhaddi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,40 @@ typedef struct s_pop {
 	t_value value;
 	bool error;
 } t_pop;
+
+size_t	ft_strlen(const char *s)
+{
+	size_t	i;
+
+	i = 0;
+	while (*s != '\0')
+	{
+		s++;
+		i++;
+	}
+	return (i);
+}
+
+char	*ft_strjoin(char const *s1, char const *s2)
+{
+	char	*strjoin;
+	size_t	len;
+	size_t	i;
+
+	i = 0;
+	if (!s1 || !s2)
+		return (NULL);
+	len = ft_strlen(s1) + ft_strlen(s2);
+	strjoin = malloc((sizeof(char) * len) + sizeof(char));
+	if (!strjoin)
+		return (NULL);
+	while (*s1)
+		strjoin[i++] = *(s1++);
+	while (*s2)
+		strjoin[i++] = *(s2++);
+	strjoin[i] = '\0';
+	return (strjoin);
+}
 
 bool push(t_stack *stack, t_value value)
 {
@@ -148,8 +182,8 @@ void populate_stack(t_stack *stack, char **values)
 
 	new_value.simplified_value = -1;
 	push_status = true;
-	value_num = stack->size;
-	while (push_status)
+	value_num = stack->size - 1;
+	while (value_num >= 0)
 	{
 		new_value.real_value = atoi(values[value_num]);
 		push_status = push(stack, new_value);
@@ -425,32 +459,95 @@ char	*strip_one_plus(char *s)
 	return s;
 }
 
-bool	is_duplicate(int len, char **argv)
+bool	is_duplicate(int len, char **args)
 {
 	int i;	
 
 	i = 0;
 	while (i < len)
 	{
-		if (strcmp(argv[i], argv[len]) == 0)
+		if (strcmp(args[i], args[len]) == 0)
 			return true;
 		i++;
 	}
 	return false;
 }
 
-void	check_args(char **argv)
+void	check_args(char **args)
 {
 	int i;
 
 	i = 1;
-	while (argv[i])
+	while (args[i])
 	{
-		argv[i] = strip_one_plus(rstrip(lstrip(argv[i])));
-		check_error(argv[i][0] == '\0');
-		check_error(!is_integer(argv[i]));
-		check_error(is_over_int(argv[i]));
-		check_error(is_duplicate(i, argv));
+		args[i] = strip_one_plus(args[i]);
+		check_error(args[i][0] == '\0');
+		check_error(!is_integer(args[i]));
+		check_error(is_over_int(args[i]));
+		check_error(is_duplicate(i, args));
+		i++;
+	}
+}
+
+int get_total_size(char **str)
+{
+	int i;
+	int size;
+
+	i = 0;
+	size = 0;
+	while (str[i])
+	{
+		size += ft_strlen(str[i]);
+		i++;
+	}
+
+	return size;
+}
+
+char	*concat_strs(char **str)
+{
+	int i;
+	char *new_str;
+
+	new_str = malloc(sizeof(new_str) * (get_total_size(str) + 1));
+	*new_str = '\0';
+	i = 0;
+	while (str[i])
+	{
+		new_str = strcat(strcat(new_str, " "), str[i]);
+		i++;
+	}
+	
+	return new_str;
+}
+
+int count_args(char *args)
+{
+	char *arg;	
+	int count;
+
+	count = 0;
+	arg = strtok(args, " ");
+	while (arg)
+	{
+		count++;	
+		arg = strtok(NULL, " ");
+	}
+	return count;
+}
+
+void set_args(char **args, char *concatenated_args)
+{
+	char *arg;	
+	int i;
+
+	arg = strtok(concatenated_args, " ");
+	i = 0;
+	while (arg)
+	{
+		args[i] = arg;
+		arg = strtok(NULL, " ");
 		i++;
 	}
 }
@@ -460,10 +557,17 @@ int main(int argc, char **argv)
 	t_stack stack_a;
 	t_stack stack_b;
 	size_t stack_size;
+	char	*concatenated_args;
+	char	**args;
 
-	stack_size = argc - 1;
-	if (stack_size == 0) return (0);
-	else check_args(argv);
+	if (argc == 1) return (0);
+	concatenated_args = lstrip(rstrip(concat_strs(argv + 1)));
+	stack_size = count_args(strdup(concatenated_args));
+	args = malloc(sizeof(args) * (stack_size + 1));
+	args[stack_size] = NULL;
+	set_args(args, concatenated_args);
+	check_args(args);
+
 	/* TO-DO: check if all arguments are valid:
 	 * - if argument isn't int
 	 * - if argument is overflow/underflow
@@ -478,7 +582,7 @@ int main(int argc, char **argv)
 
 	stack_a = create_stack(stack_size);
 	stack_b = create_stack(stack_size);
-	populate_stack(&stack_a, argv);
+	populate_stack(&stack_a, args);
 	simplify_stack(&stack_a);
 
 	if (!is_sorted(stack_a))
