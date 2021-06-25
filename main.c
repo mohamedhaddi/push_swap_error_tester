@@ -6,7 +6,7 @@
 /*   By: mhaddi <mhaddi@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/20 19:48:52 by mhaddi            #+#    #+#             */
-/*   Updated: 2021/06/25 23:45:52 by mhaddi           ###   ########.fr       */
+/*   Updated: 2021/06/26 00:03:20 by mhaddi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -489,7 +489,7 @@ void	check_args(char **args)
 {
 	int i;
 
-	i = 1;
+	i = 0;
 	while (args[i])
 	{
 		args[i] = remove_trailing_zeros(strip_one_plus(args[i]));
@@ -610,6 +610,9 @@ int main(int argc, char **argv)
 	else
 		printf("stack couldn't be sorted!\n");
 		*/
+
+	// run with:
+	// set ARG (ruby -e "print *(0...9).sort_by{rand}.join(' ')") | ./push_swap $ARG | ./checker_Mac $ARG
 
 	return (0);
 }
