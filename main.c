@@ -6,7 +6,7 @@
 /*   By: mhaddi <mhaddi@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/20 19:48:52 by mhaddi            #+#    #+#             */
-/*   Updated: 2021/06/25 01:52:47 by mhaddi           ###   ########.fr       */
+/*   Updated: 2021/06/25 23:21:33 by mhaddi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -473,6 +473,18 @@ bool	is_duplicate(int len, char **args)
 	return false;
 }
 
+char *remove_trailing_zeros(char *s)
+{
+	int i;
+
+	i = 0;
+	while (s[i] == '0')
+		i++;
+	if (i && s[i] == '\0')
+		return s + (i - 1);
+	return s + i;
+}
+
 void	check_args(char **args)
 {
 	int i;
@@ -480,7 +492,7 @@ void	check_args(char **args)
 	i = 1;
 	while (args[i])
 	{
-		args[i] = strip_one_plus(args[i]);
+		args[i] = remove_trailing_zeros(strip_one_plus(args[i]));
 		check_error(args[i][0] == '\0');
 		check_error(!is_integer(args[i]));
 		check_error(is_over_int(args[i]));
