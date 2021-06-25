@@ -6,7 +6,7 @@
 /*   By: mhaddi <mhaddi@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/20 19:48:52 by mhaddi            #+#    #+#             */
-/*   Updated: 2021/06/25 23:21:33 by mhaddi           ###   ########.fr       */
+/*   Updated: 2021/06/25 23:45:52 by mhaddi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -580,16 +580,11 @@ int main(int argc, char **argv)
 	set_args(args, concatenated_args);
 	check_args(args);
 
-	/* TO-DO: check if all arguments are valid:
-	 * - if argument isn't int
-	 * - if argument is overflow/underflow
-	 * - if there are duplicates
-	 */
 	// TO-DO: free stacks before all exits
 	// TO-DO: replace atoi and other forbidden functions (rm includes to find)
 	// TO-DO: make immutable variables const
 	/* TO-DO: when pop and push check if stacks are empty:
-	 * - if pop returns false don't push
+	 * - if pop returns false don't push (edit: probably no need to do this)
 	 */
 
 	stack_a = create_stack(stack_size);
@@ -615,11 +610,6 @@ int main(int argc, char **argv)
 	else
 		printf("stack couldn't be sorted!\n");
 		*/
-
-	// while (stack_b.top != EMPTY)
-	//	push(&stack_a, pop(&stack_b).value);
-	// TO-DO: print both stacks to check
-	// TO-DO: sort into stack a (b empty)
 
 	return (0);
 }
