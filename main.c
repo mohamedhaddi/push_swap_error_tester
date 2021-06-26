@@ -6,7 +6,7 @@
 /*   By: mhaddi <mhaddi@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/20 19:48:52 by mhaddi            #+#    #+#             */
-/*   Updated: 2021/06/26 18:35:14 by mhaddi           ###   ########.fr       */
+/*   Updated: 2021/06/26 19:40:11 by mhaddi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include <unistd.h>
 #include <string.h>
 #include <ctype.h>
+#include "libft/libft.h"
 
 #define EMPTY -1
 #define LEFT -1
@@ -37,40 +38,6 @@ typedef struct s_pop {
 	t_value value;
 	bool error;
 } t_pop;
-
-size_t	ft_strlen(const char *s)
-{
-	size_t	i;
-
-	i = 0;
-	while (*s != '\0')
-	{
-		s++;
-		i++;
-	}
-	return (i);
-}
-
-char	*ft_strjoin(char const *s1, char const *s2)
-{
-	char	*strjoin;
-	size_t	len;
-	size_t	i;
-
-	i = 0;
-	if (!s1 || !s2)
-		return (NULL);
-	len = ft_strlen(s1) + ft_strlen(s2);
-	strjoin = malloc((sizeof(char) * len) + sizeof(char));
-	if (!strjoin)
-		return (NULL);
-	while (*s1)
-		strjoin[i++] = *(s1++);
-	while (*s2)
-		strjoin[i++] = *(s2++);
-	strjoin[i] = '\0';
-	return (strjoin);
-}
 
 bool push(t_stack *stack, t_value value)
 {
@@ -185,7 +152,7 @@ void populate_stack(t_stack *stack, char **values)
 	value_num = stack->size - 1;
 	while (value_num >= 0)
 	{
-		new_value.real_value = atoi(values[value_num]);
+		new_value.real_value = ft_atoi(values[value_num]);
 		push_status = push(stack, new_value);
 		value_num--;
 	}
@@ -444,7 +411,7 @@ bool	is_over_int(char *str)
 
 	i = 0;
 	j = 0;
-	len = strlen(str);
+	len = ft_strlen(str);
 	is_negative = str[i] == '-';
 	if (is_negative) last_digit = '8';
 	if (is_negative) i++;
@@ -516,7 +483,7 @@ bool	is_duplicate(int len, char **args)
 	i = 0;
 	while (i < len)
 	{
-		if (strcmp(args[i], args[len]) == 0)
+		if (ft_strcmp(args[i], args[len]) == 0)
 			return true;
 		i++;
 	}
@@ -577,7 +544,7 @@ char	*concat_strs(char **str, int space_count)
 	i = 0;
 	while (str[i])
 	{
-		new_str = strcat(strcat(new_str, " "), str[i]);
+		new_str = ft_strjoin(ft_strjoin(new_str, " "), str[i]);
 		i++;
 	}
 	
@@ -589,6 +556,8 @@ int count_args(char *args)
 	char *arg;	
 	int count;
 
+	ft_split(args, ' ');
+
 	count = 0;
 	arg = strtok(args, " ");
 	while (arg)
@@ -599,19 +568,14 @@ int count_args(char *args)
 	return count;
 }
 
-void set_args(char **args, char *concatenated_args)
+int	ft_double_strlen(char **str)
 {
-	char *arg;	
 	int i;
 
-	arg = strtok(concatenated_args, " ");
 	i = 0;
-	while (arg)
-	{
-		args[i] = arg;
-		arg = strtok(NULL, " ");
+	while (str[i])
 		i++;
-	}
+	return i;
 }
 
 int main(int argc, char **argv)
@@ -624,13 +588,13 @@ int main(int argc, char **argv)
 
 	if (argc == 1) return (0);
 	concatenated_args = lstrip(rstrip(concat_strs(argv + 1, argc - 1)));
-	stack_size = count_args(strdup(concatenated_args));
-	args = malloc(sizeof(*args) * (stack_size + 1));
-	args[stack_size] = NULL;
-	set_args(args, concatenated_args);
+	args = ft_split(concatenated_args, ' ');
+	stack_size = ft_double_strlen(args);
 	check_args(args);
 
-	// TO-DO: free stacks before all exits
+	// TO-DO:
+	// - free stacks before all exits
+	// - free strjoin strdup split and others
 	// TO-DO: replace atoi and other forbidden functions (rm includes to find)
 	// TO-DO: make immutable variables const
 	/* TO-DO: when pop and push check if stacks are empty:

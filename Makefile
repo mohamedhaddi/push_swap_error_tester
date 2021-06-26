@@ -6,7 +6,7 @@
 #    By: mhaddi <mhaddi@student.1337.ma>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/21 07:20:17 by mhaddi            #+#    #+#              #
-#    Updated: 2021/06/23 23:52:30 by mhaddi           ###   ########.fr        #
+#    Updated: 2021/06/26 19:40:45 by mhaddi           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,18 +15,26 @@ CC			= gcc
 RM			= rm -f
 CFLAGS		= -Wall -Wextra -Werror
 DFLAGS		= -g -fsanitize=address
+LDLIBS		= -L ./libft/ -lft
+LFT         = libft/libft.a
 NAME		= push_swap
+
 
 all:		$(NAME)
 
-$(NAME):	
-			$(CC) $(CFLAGS) $(DFLAGS) $(SRCS) -o $(NAME)
+$(NAME):	$(LFT)
+			$(CC) $(CFLAGS) $(DFLAGS) $(LDLIBS) $(SRCS) -o $(NAME)
+
+$(LFT):
+			$(MAKE) -C ./libft/
 
 clean:		
-			$(RM) -r *.dSYM
+			$(MAKE) -C ./libft/ clean
 
 fclean:		clean
+			$(MAKE) -C ./libft/ fclean
 			$(RM) $(NAME)
+			$(RM) -r *.dSYM
 
 re:			fclean all
 
