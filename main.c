@@ -6,7 +6,7 @@
 /*   By: mhaddi <mhaddi@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/20 19:48:52 by mhaddi            #+#    #+#             */
-/*   Updated: 2021/06/26 17:05:41 by mhaddi           ###   ########.fr       */
+/*   Updated: 2021/06/26 18:35:14 by mhaddi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -273,20 +273,56 @@ bool is_sorted(t_stack stack)
 	return true;
 }
 
-int	get_smallest(t_stack *stack)
+int	get_smallest_val_index(t_stack *stack)
 {
 	int i;
 	int smallest;
+	int smallest_index;
 
 	i = 0;
+	smallest_index = 0;
 	smallest = 2147483647;
 	while (i <= stack->top)
 	{
 		if (stack->values[i] < smallest)
+		{
 			smallest = stack->values[i];
+			smallest_index = i;
+		}
 		i++;
 	}
-	return i;
+	return smallest_index;
+}
+
+void bring_smallest_to_top(t_stack *stack_a, int smallest_val_index)
+{
+	if (smallest_val_index == 0)
+	{
+		rotate_down(stack_a);
+		printf("rra\n");
+	}
+	else if (smallest_val_index == 1)
+	{
+		rotate_down(stack_a);
+		printf("rra\n");
+		rotate_down(stack_a);
+		printf("rra\n");
+	}
+	else if (smallest_val_index == 2)
+	{
+		if (stack_a->top == 4)
+		{
+			rotate_up(stack_a);
+			printf("ra\n");
+		}
+		swap(stack_a);
+		printf("sa\n");
+	}
+	else if (stack_a->top == 4 && smallest_val_index == 3)
+	{
+		swap(stack_a);
+		printf("sa\n");
+	}
 }
 
 void five_sort(t_stack *stack_a, t_stack *stack_b)
@@ -299,8 +335,8 @@ void five_sort(t_stack *stack_a, t_stack *stack_b)
 		i = 0;
 		while (i < stack_a->size - 3)
 		{
-			smallest_val_index = get_smallest(stack_a);
-			// bring it to top of a
+			smallest_val_index = get_smallest_val_index(stack_a);
+			bring_smallest_to_top(stack_a, smallest_val_index);
 			push(stack_b, pop(stack_a).value);
 			printf("pb\n");
 			i++;
