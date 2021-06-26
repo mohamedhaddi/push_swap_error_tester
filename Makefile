@@ -6,12 +6,12 @@
 #    By: mhaddi <mhaddi@student.1337.ma>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/21 07:20:17 by mhaddi            #+#    #+#              #
-#    Updated: 2021/06/26 19:40:45 by mhaddi           ###   ########.fr        #
+#    Updated: 2021/06/26 20:43:42 by mhaddi           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SRCS		= main.c
-CC			= gcc
+CC			= clang
 RM			= rm -f
 CFLAGS		= -Wall -Wextra -Werror
 DFLAGS		= -g -fsanitize=address

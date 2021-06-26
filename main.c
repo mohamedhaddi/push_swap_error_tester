@@ -6,16 +6,12 @@
 /*   By: mhaddi <mhaddi@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/20 19:48:52 by mhaddi            #+#    #+#             */
-/*   Updated: 2021/06/26 19:40:11 by mhaddi           ###   ########.fr       */
+/*   Updated: 2021/06/26 21:03:54 by mhaddi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdbool.h>
 #include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <string.h>
-#include <ctype.h>
 #include "libft/libft.h"
 
 #define EMPTY -1
@@ -124,7 +120,7 @@ void	check_error(bool is_error)
 	if (is_error)
 	{
 		write(2, "Error\n", 6);
-		exit(EXIT_FAILURE);
+		exit(255);
 	}
 }
 
@@ -393,7 +389,7 @@ bool	is_integer(char *str)
 	if (str[0] == '-' && str[1]) i++;
 	while (str[i])
 	{
-		if (!isdigit(str[i]))
+		if (!ft_isdigit(str[i]))
 			return false;
 		i++;
 	}
@@ -551,24 +547,7 @@ char	*concat_strs(char **str, int space_count)
 	return new_str;
 }
 
-int count_args(char *args)
-{
-	char *arg;	
-	int count;
-
-	ft_split(args, ' ');
-
-	count = 0;
-	arg = strtok(args, " ");
-	while (arg)
-	{
-		count++;	
-		arg = strtok(NULL, " ");
-	}
-	return count;
-}
-
-int	ft_double_strlen(char **str)
+int	ft_double_ptr_len(char **str)
 {
 	int i;
 
@@ -586,20 +565,23 @@ int main(int argc, char **argv)
 	char	*concatenated_args;
 	char	**args;
 
-	if (argc == 1) return (0);
+	// to-do: handle empty args at first! shiiiit
+	if (argc == 1)
+	{
+		if (!argv[1]) return (0);
+	}
+	if (argc == 2)
+	{
+		check_error(argv[1][0] == '\0');
+	}
 	concatenated_args = lstrip(rstrip(concat_strs(argv + 1, argc - 1)));
 	args = ft_split(concatenated_args, ' ');
-	stack_size = ft_double_strlen(args);
+	stack_size = ft_double_ptr_len(args);
 	check_args(args);
 
 	// TO-DO:
 	// - free stacks before all exits
 	// - free strjoin strdup split and others
-	// TO-DO: replace atoi and other forbidden functions (rm includes to find)
-	// TO-DO: make immutable variables const
-	/* TO-DO: when pop and push check if stacks are empty:
-	 * - if pop returns false don't push (edit: probably no need to do this)
-	 */
 
 	stack_a = create_stack(stack_size);
 	stack_b = create_stack(stack_size);
@@ -618,15 +600,9 @@ int main(int argc, char **argv)
 			two_sort(&stack_a);
 	}
 
-	/*
-	if (is_sorted(stack_a))
-		print_stack("A", stack_a);
-	else
-		printf("stack couldn't be sorted!\n");
-		*/
-
-	// run with:
-	// set ARG (ruby -e "print *(0...9).sort_by{rand}.join(' ')") | ./push_swap $ARG | ./checker_Mac $ARG
+	/* run with:
+	set A (ruby -e "puts *(0...9).to_a.shuffle.join(' ')"); ./push_swap $A | ./checker_Mac $A
+	*/
 
 	return (0);
 }
