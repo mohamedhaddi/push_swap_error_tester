@@ -6,7 +6,7 @@
 /*   By: mhaddi <mhaddi@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/20 19:48:52 by mhaddi            #+#    #+#             */
-/*   Updated: 2021/06/26 00:03:20 by mhaddi           ###   ########.fr       */
+/*   Updated: 2021/06/26 02:52:18 by mhaddi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,9 +165,9 @@ t_stack create_stack(size_t size)
 {
 	t_stack stack;
 
-	stack.values = malloc(sizeof(stack.values) * size);
+	stack.values = malloc(sizeof(*stack.values) * size);
 	check_error(!stack.values);
-	stack.simplified_values = malloc(sizeof(stack.values) * size);
+	stack.simplified_values = malloc(sizeof(*stack.values) * size);
 	check_error(!stack.simplified_values);
 	stack.size = size;
 	stack.top = -1;
@@ -273,6 +273,33 @@ bool is_sorted(t_stack stack)
 	return true;
 }
 
+bool is_between_top_middle(t_stack *stack)
+{
+	return stack->values[stack->top] > stack->values[stack->top - 1]
+			&& stack->values[stack->top] < stack->values[stack->top - 2];
+}
+
+bool is_middle(t_stack *stack)
+{
+	return stack->values[stack->top] > stack->values[stack->top - 2]
+			&& stack->values[stack->top] < stack->values[stack->top - 3];
+}
+
+bool is_greater_than_bottom(t_stack *stack)
+{
+	return stack->values[stack->top] > stack->values[0];
+}
+
+bool is_lesser_than_bottom(t_stack *stack)
+{
+	return stack->values[stack->top] < stack->values[0];
+}
+
+bool is_lesser_than_top(t_stack *stack)
+{
+	return stack->values[stack->top] < stack->values[stack->top - 1];
+}
+
 void five_sort(t_stack *stack_a, t_stack *stack_b)
 {
 	int i;
@@ -288,14 +315,53 @@ void five_sort(t_stack *stack_a, t_stack *stack_b)
 		}
 		if (!is_sorted(*stack_a))
 			three_sort(stack_a);
+		if (stack_b->top == 1
+				&& stack_b->values[stack_b->top] < stack_b->values[stack_b->top - 1])
+		{
+			swap(stack_b);
+			printf("sb\n");
+		}
 		while (i)
 		{
 			push(stack_a, pop(stack_b).value);
 			printf("pa\n");
-			if (stack_a->values[stack_a->top] > stack_a->values[stack_a->top - 1])
+			if (is_lesser_than_top(stack_a))
+				;
+			else if (is_between_top_middle(stack_a))
 			{
 				swap(stack_a);
 				printf("sa\n");
+			}
+			else if (stack_a->size == 5 && i == 1 && is_middle(stack_a))
+			{
+				rotate_down(stack_a);
+				printf("rra\n");
+				swap(stack_a);
+				printf("sa\n");
+				rotate_down(stack_a);
+				printf("rra\n");
+				swap(stack_a);
+				printf("sa\n");
+				rotate_down(stack_a);
+				printf("rra\n");
+				rotate_down(stack_a);
+				printf("rra\n");
+			}
+			else if (is_lesser_than_bottom(stack_a))
+			{
+				rotate_down(stack_a);
+				printf("rra\n");
+				swap(stack_a);
+				printf("sa\n");
+				rotate_up(stack_a);
+				printf("ra\n");
+				rotate_up(stack_a);
+				printf("ra\n");
+			}
+			else if (is_greater_than_bottom(stack_a))
+			{
+				rotate_up(stack_a);
+				printf("ra\n");
 			}
 			i--;
 		}
@@ -517,12 +583,12 @@ int get_total_size(char **str)
 	return size;
 }
 
-char	*concat_strs(char **str)
+char	*concat_strs(char **str, int space_count)
 {
 	int i;
 	char *new_str;
 
-	new_str = malloc(sizeof(new_str) * (get_total_size(str) + 1));
+	new_str = malloc(sizeof(*new_str) * (get_total_size(str) + space_count + 1));
 	*new_str = '\0';
 	i = 0;
 	while (str[i])
@@ -573,9 +639,9 @@ int main(int argc, char **argv)
 	char	**args;
 
 	if (argc == 1) return (0);
-	concatenated_args = lstrip(rstrip(concat_strs(argv + 1)));
+	concatenated_args = lstrip(rstrip(concat_strs(argv + 1, argc - 1)));
 	stack_size = count_args(strdup(concatenated_args));
-	args = malloc(sizeof(args) * (stack_size + 1));
+	args = malloc(sizeof(*args) * (stack_size + 1));
 	args[stack_size] = NULL;
 	set_args(args, concatenated_args);
 	check_args(args);
