@@ -6,7 +6,7 @@
 /*   By: mhaddi <mhaddi@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/20 19:48:52 by mhaddi            #+#    #+#             */
-/*   Updated: 2021/06/26 02:52:18 by mhaddi           ###   ########.fr       */
+/*   Updated: 2021/06/26 17:05:41 by mhaddi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -273,96 +273,44 @@ bool is_sorted(t_stack stack)
 	return true;
 }
 
-bool is_between_top_middle(t_stack *stack)
+int	get_smallest(t_stack *stack)
 {
-	return stack->values[stack->top] > stack->values[stack->top - 1]
-			&& stack->values[stack->top] < stack->values[stack->top - 2];
-}
+	int i;
+	int smallest;
 
-bool is_middle(t_stack *stack)
-{
-	return stack->values[stack->top] > stack->values[stack->top - 2]
-			&& stack->values[stack->top] < stack->values[stack->top - 3];
-}
-
-bool is_greater_than_bottom(t_stack *stack)
-{
-	return stack->values[stack->top] > stack->values[0];
-}
-
-bool is_lesser_than_bottom(t_stack *stack)
-{
-	return stack->values[stack->top] < stack->values[0];
-}
-
-bool is_lesser_than_top(t_stack *stack)
-{
-	return stack->values[stack->top] < stack->values[stack->top - 1];
+	i = 0;
+	smallest = 2147483647;
+	while (i <= stack->top)
+	{
+		if (stack->values[i] < smallest)
+			smallest = stack->values[i];
+		i++;
+	}
+	return i;
 }
 
 void five_sort(t_stack *stack_a, t_stack *stack_b)
 {
 	int i;
+	int smallest_val_index;
 
 	while (!is_sorted(*stack_a))
 	{
 		i = 0;
 		while (i < stack_a->size - 3)
 		{
+			smallest_val_index = get_smallest(stack_a);
+			// bring it to top of a
 			push(stack_b, pop(stack_a).value);
 			printf("pb\n");
 			i++;
 		}
 		if (!is_sorted(*stack_a))
 			three_sort(stack_a);
-		if (stack_b->top == 1
-				&& stack_b->values[stack_b->top] < stack_b->values[stack_b->top - 1])
-		{
-			swap(stack_b);
-			printf("sb\n");
-		}
 		while (i)
 		{
 			push(stack_a, pop(stack_b).value);
 			printf("pa\n");
-			if (is_lesser_than_top(stack_a))
-				;
-			else if (is_between_top_middle(stack_a))
-			{
-				swap(stack_a);
-				printf("sa\n");
-			}
-			else if (stack_a->size == 5 && i == 1 && is_middle(stack_a))
-			{
-				rotate_down(stack_a);
-				printf("rra\n");
-				swap(stack_a);
-				printf("sa\n");
-				rotate_down(stack_a);
-				printf("rra\n");
-				swap(stack_a);
-				printf("sa\n");
-				rotate_down(stack_a);
-				printf("rra\n");
-				rotate_down(stack_a);
-				printf("rra\n");
-			}
-			else if (is_lesser_than_bottom(stack_a))
-			{
-				rotate_down(stack_a);
-				printf("rra\n");
-				swap(stack_a);
-				printf("sa\n");
-				rotate_up(stack_a);
-				printf("ra\n");
-				rotate_up(stack_a);
-				printf("ra\n");
-			}
-			else if (is_greater_than_bottom(stack_a))
-			{
-				rotate_up(stack_a);
-				printf("ra\n");
-			}
 			i--;
 		}
 	}
