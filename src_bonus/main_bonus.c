@@ -6,7 +6,7 @@
 /*   By: mhaddi <mhaddi@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/20 19:48:52 by mhaddi            #+#    #+#             */
-/*   Updated: 2021/06/27 17:10:18 by mhaddi           ###   ########.fr       */
+/*   Updated: 2021/06/27 18:05:58 by mhaddi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -228,6 +228,7 @@ void three_sort(t_stack *stack_a)
 bool is_sorted(t_stack stack)
 {
 	int i = 0;
+
 	while (i < stack.top)
 	{
 		if (stack.values[i] < stack.values[i + 1])
@@ -608,7 +609,9 @@ int main(int argc, char **argv)
 		i++;
 	}
 
-	if (is_sorted(stack_a))
+	if (stack_a.top == -1)
+		printf("KO\n");
+	else if (is_sorted(stack_a))
 		printf("OK\n");
 	else
 		printf("KO\n");
