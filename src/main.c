@@ -6,13 +6,14 @@
 /*   By: mhaddi <mhaddi@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/20 19:48:52 by mhaddi            #+#    #+#             */
-/*   Updated: 2021/06/26 21:03:54 by mhaddi           ###   ########.fr       */
+/*   Updated: 2021/06/27 17:11:26 by mhaddi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdbool.h>
 #include <stdio.h>
-#include "libft/libft.h"
+#include <stdlib.h>
+#include "../libft/libft.h"
 
 #define EMPTY -1
 #define LEFT -1
@@ -66,7 +67,7 @@ void swap(t_stack *stack)
 	int tmp;
 	int tmp_simplified;
 
-	if (stack->size > 1)
+	if (stack->top > 1)
 	{
 		tmp = stack->values[stack->top];
 		tmp_simplified = stack->simplified_values[stack->top];
@@ -505,6 +506,7 @@ void	check_args(char **args)
 	i = 0;
 	while (args[i])
 	{
+		check_error(ft_strlen(args[i]) > 1 && ft_strncmp(args[i], "+-", 2) == 0);
 		args[i] = remove_trailing_zeros(strip_one_plus(args[i]));
 		check_error(args[i][0] == '\0');
 		check_error(!is_integer(args[i]));
@@ -557,6 +559,18 @@ int	ft_double_ptr_len(char **str)
 	return i;
 }
 
+void	check_empty_arg(char **argv)
+{
+	int i;
+
+	i = 0;
+	while (argv[i])
+	{
+		check_error(argv[i][0] == '\0');
+		i++;
+	}
+}
+
 int main(int argc, char **argv)
 {
 	t_stack stack_a;
@@ -565,15 +579,8 @@ int main(int argc, char **argv)
 	char	*concatenated_args;
 	char	**args;
 
-	// to-do: handle empty args at first! shiiiit
-	if (argc == 1)
-	{
-		if (!argv[1]) return (0);
-	}
-	if (argc == 2)
-	{
-		check_error(argv[1][0] == '\0');
-	}
+	if (argc == 1) return (0);
+	check_empty_arg(argv);
 	concatenated_args = lstrip(rstrip(concat_strs(argv + 1, argc - 1)));
 	args = ft_split(concatenated_args, ' ');
 	stack_size = ft_double_ptr_len(args);
@@ -604,5 +611,5 @@ int main(int argc, char **argv)
 	set A (ruby -e "puts *(0...9).to_a.shuffle.join(' ')"); ./push_swap $A | ./checker_Mac $A
 	*/
 
-	return (0);
+	return (EXIT_SUCCESS);
 }
