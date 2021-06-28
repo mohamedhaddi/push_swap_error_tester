@@ -6,7 +6,7 @@
 /*   By: mhaddi <mhaddi@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/20 19:48:52 by mhaddi            #+#    #+#             */
-/*   Updated: 2021/06/27 19:11:58 by mhaddi           ###   ########.fr       */
+/*   Updated: 2021/06/27 23:39:51 by mhaddi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@
 #include "../libft/libft.h"
 
 #define EMPTY -1
-#define LEFT -1
-#define RIGHT 1
 
 typedef struct s_stack {
 	int *values;

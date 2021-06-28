@@ -6,7 +6,7 @@
 /*   By: mhaddi <mhaddi@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/20 19:48:52 by mhaddi            #+#    #+#             */
-/*   Updated: 2021/06/27 17:11:26 by mhaddi           ###   ########.fr       */
+/*   Updated: 2021/06/28 03:20:55 by mhaddi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@
 #include "../libft/libft.h"
 
 #define EMPTY -1
-#define LEFT -1
-#define RIGHT 1
 
 typedef struct s_stack {
 	int *values;
@@ -318,10 +316,18 @@ void five_sort(t_stack *stack_a, t_stack *stack_b)
 
 void sort(t_stack *stack_a, t_stack *stack_b)
 {
-	int max_num = stack_a->size - 1;
+	int max_num = stack_a->size - 1; // the biggest number in stack_a (simplified)
+									// is stack_a->size - 1
 	int max_bits = 0;
 
-	while ((max_num >> max_bits) != 0) ++max_bits;
+	while ((max_num >> max_bits) != 0) max_bits++; // we shift right until all bits are 000000s
+													// we do this to know how many bits we have
+													// to check. so we do max_bits iterations,
+													// first iteration we start from sending
+													// the zeros in least significant bit
+													// to stack_b, keep the ones in stack_a;
+													// and for each iteration we move to the
+													// more significant bit
 
 	int i = 0;
 	while (i < max_bits)
@@ -330,7 +336,17 @@ void sort(t_stack *stack_a, t_stack *stack_b)
 		while (j < stack_a->size)
 		{
 			int num = stack_a->simplified_values[stack_a->top];
-			if (((num >> i) & 1) == 1)
+			if (((num >> i) & 1) == 1) // at the first iteration, i == 0, so the number
+										// isn't right-shifted; we & it with 1 (00000001)
+										// so that all bits other than the last one (least
+										// significant one) becomes 0, that way we can know
+										// if the last one is actually 0 or 1 (00000 or 00001)
+										// if 0, we push it to stack_b, else it stays (rotate up)
+										// in stack_a
+										//
+										// in next iteration, we shift the number i times, so that
+										// the bit that we want to check against &1 is now the
+										// least significant one
 			{
 				rotate_up(stack_a);
 				printf("ra\n");
@@ -348,7 +364,6 @@ void sort(t_stack *stack_a, t_stack *stack_b)
 			push(stack_a, pop(stack_b).value);
 			printf("pa\n");
 		}
-
 		i++;
 	}
 }
