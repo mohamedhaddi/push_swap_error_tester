@@ -6,7 +6,7 @@
 /*   By: mhaddi <mhaddi@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/20 19:48:52 by mhaddi            #+#    #+#             */
-/*   Updated: 2021/06/28 03:20:55 by mhaddi           ###   ########.fr       */
+/*   Updated: 2021/06/28 16:43:44 by mhaddi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,11 @@
 #include "../libft/libft.h"
 
 #define EMPTY -1
+
+typedef struct s_data {
+	char **args;
+	int args_state;
+} t_data;
 
 typedef struct s_stack {
 	int *values;
@@ -314,20 +319,34 @@ void five_sort(t_stack *stack_a, t_stack *stack_b)
 	}
 }
 
+/*
+ * max_num: the biggest number in stack_a (simplified) is stack_a->size - 1
+ *
+ * then in a while loop, we shift right until all bits are 000000s
+ * we do this to know how many bits we have
+ * to check. so we do max_bits iterations,
+ * first iteration we start from sending
+ * the zeros in least significant bit
+ * to stack_b, keep the ones in stack_a;
+ * and for each iteration we move to the more significant bit
+ *
+ * so in the next while loop, we loop max_bits times,
+ * at the first iteration, i == 0, so the number
+ * isn't right-shifted; we & it with 1 (00000001)
+ * so that all bits other than the last one (least
+ * significant one) becomes 0, that way we can know
+ * if the last one is actually 0 or 1 (00000 or 00001)
+ * if 0, we push it to stack_b, else it stays (rotate up)
+ * in stack_a in next iteration, we shift the number i times, so that
+ * the bit that we want to check against &1 is now the least significant one
+ */
+
 void sort(t_stack *stack_a, t_stack *stack_b)
 {
-	int max_num = stack_a->size - 1; // the biggest number in stack_a (simplified)
-									// is stack_a->size - 1
+	int max_num = stack_a->size - 1; 
 	int max_bits = 0;
 
-	while ((max_num >> max_bits) != 0) max_bits++; // we shift right until all bits are 000000s
-													// we do this to know how many bits we have
-													// to check. so we do max_bits iterations,
-													// first iteration we start from sending
-													// the zeros in least significant bit
-													// to stack_b, keep the ones in stack_a;
-													// and for each iteration we move to the
-													// more significant bit
+	while ((max_num >> max_bits) != 0) max_bits++;
 
 	int i = 0;
 	while (i < max_bits)
@@ -336,17 +355,7 @@ void sort(t_stack *stack_a, t_stack *stack_b)
 		while (j < stack_a->size)
 		{
 			int num = stack_a->simplified_values[stack_a->top];
-			if (((num >> i) & 1) == 1) // at the first iteration, i == 0, so the number
-										// isn't right-shifted; we & it with 1 (00000001)
-										// so that all bits other than the last one (least
-										// significant one) becomes 0, that way we can know
-										// if the last one is actually 0 or 1 (00000 or 00001)
-										// if 0, we push it to stack_b, else it stays (rotate up)
-										// in stack_a
-										//
-										// in next iteration, we shift the number i times, so that
-										// the bit that we want to check against &1 is now the
-										// least significant one
+			if (((num >> i) & 1) == 1)
 			{
 				rotate_up(stack_a);
 				printf("ra\n");
@@ -517,12 +526,18 @@ char *remove_trailing_zeros(char *s)
 void	check_args(char **args)
 {
 	int i;
+	char *tmp;
 
 	i = 0;
 	while (args[i])
 	{
-		check_error(ft_strlen(args[i]) > 1 && ft_strncmp(args[i], "+-", 2) == 0);
-		args[i] = remove_trailing_zeros(strip_one_plus(args[i]));
+		check_error(ft_strncmp(args[i], "+-", 2) == 0);
+		if (ft_strncmp(args[i], "00", 2) == 0 || ft_strncmp(args[i], "+", 1) == 0)
+		{
+			tmp = ft_strdup(remove_trailing_zeros(strip_one_plus(args[i])));
+			free(args[i]);
+			args[i] = tmp;
+		}
 		check_error(args[i][0] == '\0');
 		check_error(!is_integer(args[i]));
 		check_error(is_over_int(args[i]));
@@ -551,16 +566,22 @@ char	*concat_strs(char **str, int space_count)
 {
 	int i;
 	char *new_str;
+	char *new_str_space;
 
 	new_str = malloc(sizeof(*new_str) * (get_total_size(str) + space_count + 1));
+	check_error(!new_str);
 	*new_str = '\0';
 	i = 0;
 	while (str[i])
 	{
-		new_str = ft_strjoin(ft_strjoin(new_str, " "), str[i]);
+		new_str_space = ft_strjoin(new_str, " ");
+		check_error(!new_str_space);
+		free(new_str);
+		new_str = ft_strjoin(new_str_space, str[i]);
+		check_error(!new_str);
+		free(new_str_space);
 		i++;
 	}
-	
 	return new_str;
 }
 
@@ -586,6 +607,22 @@ void	check_empty_arg(char **argv)
 	}
 }
 
+void    free_double_pointer(char **ptr)
+{
+    int i;
+
+    i = 0;
+    while (ptr[i])
+		free(ptr[i++]);
+    free(ptr);
+}
+
+void	free_stack(t_stack *stack)
+{
+	free(stack->values);
+	free(stack->simplified_values);
+}
+
 int main(int argc, char **argv)
 {
 	t_stack stack_a;
@@ -596,8 +633,11 @@ int main(int argc, char **argv)
 
 	if (argc == 1) return (0);
 	check_empty_arg(argv);
-	concatenated_args = lstrip(rstrip(concat_strs(argv + 1, argc - 1)));
+	concatenated_args = concat_strs(argv + 1, argc - 1);
+	check_error(!concatenated_args);
 	args = ft_split(concatenated_args, ' ');
+	check_error(!concatenated_args);
+	free(concatenated_args);
 	stack_size = ft_double_ptr_len(args);
 	check_args(args);
 
@@ -608,6 +648,7 @@ int main(int argc, char **argv)
 	stack_a = create_stack(stack_size);
 	stack_b = create_stack(stack_size);
 	populate_stack(&stack_a, args);
+	free_double_pointer(args);
 	simplify_stack(&stack_a);
 
 	if (!is_sorted(stack_a))
@@ -621,6 +662,9 @@ int main(int argc, char **argv)
 		else if (stack_size == 2)
 			two_sort(&stack_a);
 	}
+
+	free_stack(&stack_a);
+	free_stack(&stack_b);
 
 	/* run with:
 	set A (ruby -e "puts *(0...9).to_a.shuffle.join(' ')"); ./push_swap $A | ./checker_Mac $A

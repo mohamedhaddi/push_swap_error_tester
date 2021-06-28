@@ -6,7 +6,7 @@
 /*   By: mhaddi <mhaddi@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/20 19:48:52 by mhaddi            #+#    #+#             */
-/*   Updated: 2021/06/27 23:39:51 by mhaddi           ###   ########.fr       */
+/*   Updated: 2021/06/28 17:21:02 by mhaddi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,10 @@ char	*ft_getline(void)
 	{
 		if (!read(0, &c, 1))
 		{
-			free(line);
-			return (NULL);
+			tmp = line;
+			line = ft_strjoin(tmp, "EOF");
+			free(tmp);
+			return (line);
 		}
 		tmp = line;
 		line = ft_strjoin(tmp, (char [2]){c, '\0'});
@@ -565,7 +567,7 @@ int main(int argc, char **argv)
 	while (1)
 	{
 		operation = ft_getline();
-		if (!operation) break ;
+		if (ft_strcmp(operation, "EOF") == 0) break ;
 		check_error(!is_valid_op(operation));
 		tmp = concat_user_ops;
 		concat_user_ops = ft_strjoin(tmp, operation);
