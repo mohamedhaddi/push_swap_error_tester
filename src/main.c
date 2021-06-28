@@ -6,7 +6,7 @@
 /*   By: mhaddi <mhaddi@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/20 19:48:52 by mhaddi            #+#    #+#             */
-/*   Updated: 2021/06/28 16:43:44 by mhaddi           ###   ########.fr       */
+/*   Updated: 2021/06/28 19:51:50 by mhaddi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -585,7 +585,7 @@ char	*concat_strs(char **str, int space_count)
 	return new_str;
 }
 
-int	ft_double_ptr_len(char **str)
+int	str_arr_len(char **str)
 {
 	int i;
 
@@ -638,7 +638,7 @@ int main(int argc, char **argv)
 	args = ft_split(concatenated_args, ' ');
 	check_error(!concatenated_args);
 	free(concatenated_args);
-	stack_size = ft_double_ptr_len(args);
+	stack_size = str_arr_len(args);
 	check_args(args);
 
 	// TO-DO:

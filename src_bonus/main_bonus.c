@@ -6,7 +6,7 @@
 /*   By: mhaddi <mhaddi@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/20 19:48:52 by mhaddi            #+#    #+#             */
-/*   Updated: 2021/06/28 17:21:02 by mhaddi           ###   ########.fr       */
+/*   Updated: 2021/06/28 18:56:40 by mhaddi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -609,9 +609,16 @@ int main(int argc, char **argv)
 		i++;
 	}
 
-	if (stack_a.top == -1)
-		printf("KO\n");
-	else if (is_sorted(stack_a) && stack_a.top == stack_a.size - 1)
+	//if (stack_a.top == -1)
+	//	printf("KO\n");
+	if (is_sorted(stack_a) && stack_b.top == EMPTY) // checking if stack_b is empty
+													// for two reasons:
+													// 1. if a is sorted but not all
+													// initial elements are in it.
+													// 2. if stack_a is empty (pb pb...)
+													// is_sorted() returns true, so
+													// we should also check if stack_b
+													// is empty
 		printf("OK\n");
 	else
 		printf("KO\n");
