@@ -1,29 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pop.c                                              :+:      :+:    :+:   */
+/*   error_utils_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mhaddi <mhaddi@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/06/29 17:00:38 by mhaddi            #+#    #+#             */
-/*   Updated: 2021/06/29 18:17:49 by mhaddi           ###   ########.fr       */
+/*   Created: 2021/06/29 16:49:40 by mhaddi            #+#    #+#             */
+/*   Updated: 2021/06/29 20:05:15 by mhaddi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "push_swap_bonus.h"
 
-t_pop	pop(t_stack *stack)
+void	free_double_pointer(char **ptr)
 {
-	t_pop	pop;
+	int	i;
 
-	if (stack->top == EMPTY)
-		pop.error = true;
-	else
+	i = 0;
+	while (ptr[i])
+		free(ptr[i++]);
+	free(ptr);
+}
+
+void	check_error(bool is_error)
+{
+	if (is_error)
 	{
-		pop.value.real_value = stack->values[stack->top];
-		pop.value.simplified_value = stack->simplified_values[stack->top];
-		stack->top--;
-		pop.error = false;
+		write(2, "Error\n", 6);
+		exit(255);
 	}
-	return (pop);
 }

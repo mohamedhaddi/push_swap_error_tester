@@ -6,20 +6,20 @@
 /*   By: mhaddi <mhaddi@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/29 16:49:40 by mhaddi            #+#    #+#             */
-/*   Updated: 2021/06/29 17:04:52 by mhaddi           ###   ########.fr       */
+/*   Updated: 2021/06/29 18:20:23 by mhaddi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void    free_double_pointer(char **ptr)
+void	free_double_pointer(char **ptr)
 {
-    int i;
+	int	i;
 
-    i = 0;
-    while (ptr[i])
+	i = 0;
+	while (ptr[i])
 		free(ptr[i++]);
-    free(ptr);
+	free(ptr);
 }
 
 void	check_error(bool is_error)
@@ -30,4 +30,3 @@ void	check_error(bool is_error)
 		exit(255);
 	}
 }
-

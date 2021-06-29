@@ -1,29 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pop.c                                              :+:      :+:    :+:   */
+/*   push_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mhaddi <mhaddi@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/06/29 17:00:38 by mhaddi            #+#    #+#             */
-/*   Updated: 2021/06/29 18:17:49 by mhaddi           ###   ########.fr       */
+/*   Created: 2021/06/29 17:00:02 by mhaddi            #+#    #+#             */
+/*   Updated: 2021/06/29 20:05:59 by mhaddi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "push_swap_bonus.h"
 
-t_pop	pop(t_stack *stack)
+bool	push(t_stack *stack, t_value value)
 {
-	t_pop	pop;
+	if (stack->top >= stack->size - 1)
+		return (false);
+	stack->top++;
+	stack->values[stack->top] = value.real_value;
+	stack->simplified_values[stack->top] = value.simplified_value;
+	return (true);
+}
 
-	if (stack->top == EMPTY)
-		pop.error = true;
-	else
-	{
-		pop.value.real_value = stack->values[stack->top];
-		pop.value.simplified_value = stack->simplified_values[stack->top];
-		stack->top--;
-		pop.error = false;
-	}
-	return (pop);
+void	push_and_print(t_stack *stack, t_value value, char *operation)
+{
+	push(stack, value);
+	printf("%s\n", operation);
 }

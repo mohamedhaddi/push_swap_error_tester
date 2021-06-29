@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   five_sort_utils.c                                  :+:      :+:    :+:   */
+/*   five_sort_utils_bonus.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mhaddi <mhaddi@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/29 17:11:15 by mhaddi            #+#    #+#             */
-/*   Updated: 2021/06/29 18:16:08 by mhaddi           ###   ########.fr       */
+/*   Updated: 2021/06/29 20:05:23 by mhaddi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "push_swap_bonus.h"
 
 int	get_smallest_val_index(t_stack *stack)
 {
