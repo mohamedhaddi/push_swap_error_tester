@@ -6,7 +6,7 @@
 /*   By: mhaddi <mhaddi@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/30 03:57:37 by mhaddi            #+#    #+#             */
-/*   Updated: 2021/06/30 04:04:32 by mhaddi           ###   ########.fr       */
+/*   Updated: 2021/06/30 04:26:39 by mhaddi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ char	**get_operations(int *count_ops)
 
 	concat_user_ops = malloc(sizeof(*concat_user_ops));
 	*concat_user_ops = '\0';
-	count_ops = 0;
+	*count_ops = 0;
 	while (1)
 	{
 		operation = ft_getline();
@@ -72,7 +72,7 @@ char	**get_operations(int *count_ops)
 		tmp = concat_user_ops;
 		concat_user_ops = ft_strjoin(tmp, operation);
 		free(tmp);
-		count_ops++;
+		*count_ops += 1;
 	}
 	tmp = concat_user_ops;
 	user_ops = ft_split(tmp, '\n');
