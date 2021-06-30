@@ -6,11 +6,25 @@
 /*   By: mhaddi <mhaddi@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/29 16:56:53 by mhaddi            #+#    #+#             */
-/*   Updated: 2021/06/29 20:06:27 by mhaddi           ###   ########.fr       */
+/*   Updated: 2021/06/30 04:08:47 by mhaddi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap_bonus.h"
+
+bool	is_sorted(t_stack stack)
+{
+	int	i;
+
+	i = 0;
+	while (i < stack.top)
+	{
+		if (stack.values[i] < stack.values[i + 1])
+			return (false);
+		i++;
+	}
+	return (true);
+}
 
 void	populate_stack(t_stack *stack, char **values)
 {

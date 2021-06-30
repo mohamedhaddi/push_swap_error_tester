@@ -6,7 +6,7 @@
 /*   By: mhaddi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/25 18:57:17 by mhaddi            #+#    #+#             */
-/*   Updated: 2021/06/29 20:11:05 by mhaddi           ###   ########.fr       */
+/*   Updated: 2021/06/30 04:11:19 by mhaddi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,27 +55,26 @@ char			*remove_trailing_zeros(char *s);
 t_stack			create_stack(size_t size);
 void			populate_stack(t_stack *stack, char **values);
 char			**parse_args(char **argv, int argc);
-void			rotate_up_and_print(t_stack *stack, char *operation);
-void			rotate_down_and_print(t_stack *stack, char *operation);
-void			push_and_print(t_stack *stack, t_value value, char *operation);
 bool			push(t_stack *stack, t_value value);
 t_pop			pop(t_stack *stack);
 void			swap(t_stack *stack);
-void			swap_and_print(t_stack *stack, char *operation);
 void			destroy_stack(t_stack *stack);
 void			free_double_pointer(char **ptr);
 void			simplify_stack(t_stack *stack);
-void			bring_smallest_to_top(t_stack *stack_a, int smallest_val_index);
-int				get_smallest_val_index(t_stack *stack);
-bool			smaller_in_top(int *arr);
-bool			bigger_in_top(int *arr);
-bool			smaller_in_middle(int *arr);
-bool			bigger_in_bottom(int *arr);
-bool			bigger_in_middle(int *arr);
 bool			is_sorted(t_stack stack);
-void			sort(t_stack *stack_a, t_stack *stack_b, int stack_size);
 bool			is_over_int(char *str);
 void			rotate_down(t_stack *stack);
 void			rotate_up(t_stack *stack);
+void			run_operations(
+					t_stack *stack_a,
+					t_stack *stack_b,
+					char **user_ops,
+					int count_ops);
+char			*ft_getline(void);
+bool			is_rotate_a(char *operation);
+bool			is_rotate_b(char *operation);
+bool			is_reverse_rotate_a(char *operation);
+bool			is_reverse_rotate_b(char *operation);
+int				check_operations(t_stack *stack_a, t_stack *stack_b);
 
 #endif

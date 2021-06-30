@@ -1,38 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   three_sort_utils_bonus.c                           :+:      :+:    :+:   */
+/*   getline_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mhaddi <mhaddi@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/06/29 17:13:49 by mhaddi            #+#    #+#             */
-/*   Updated: 2021/06/29 20:06:40 by mhaddi           ###   ########.fr       */
+/*   Created: 2021/06/30 03:58:18 by mhaddi            #+#    #+#             */
+/*   Updated: 2021/06/30 04:11:45 by mhaddi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap_bonus.h"
 
-bool	smaller_in_top(int *arr)
+char	*ft_getline(void)
 {
-	return (arr[2] < arr[1] && arr[2] < arr[0]);
-}
+	char	c;
+	char	*line;
+	char	*tmp;
 
-bool	bigger_in_top(int *arr)
-{
-	return (arr[2] > arr[1] && arr[2] > arr[0]);
-}
-
-bool	smaller_in_middle(int *arr)
-{
-	return (arr[1] < arr[2] && arr[1] < arr[0]);
-}
-
-bool	bigger_in_bottom(int *arr)
-{
-	return (arr[0] > arr[2] && arr[0] > arr[1]);
-}
-
-bool	bigger_in_middle(int *arr)
-{
-	return (arr[1] > arr[2] && arr[1] > arr[0]);
+	line = malloc(1);
+	*line = '\0';
+	while (1)
+	{
+		if (!read(0, &c, 1))
+		{
+			tmp = line;
+			line = ft_strjoin(tmp, "EOF");
+			free(tmp);
+			return (line);
+		}
+		tmp = line;
+		line = ft_strjoin(tmp, (char [2]){c, '\0'});
+		free(tmp);
+		if (c == '\n')
+			return (line);
+	}
 }
