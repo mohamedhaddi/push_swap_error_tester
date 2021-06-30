@@ -6,17 +6,18 @@
 /*   By: mhaddi <mhaddi@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/30 03:57:37 by mhaddi            #+#    #+#             */
-/*   Updated: 2021/06/30 04:26:39 by mhaddi           ###   ########.fr       */
+/*   Updated: 2021/06/30 16:09:29 by mhaddi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap_bonus.h"
 
 /*
- * checking if stack_b is empty for two reasons:
- * 1. if a is sorted but not all initial elements are in it.
- * 2. if stack_a is empty (pb pb...) is_sorted() returns true, so
- * we should also check if stack_b is empty
+ * Checking if stack_b is empty for two reasons:
+ * 1. If stack_a is sorted but not all initial elements are in it,
+ * it shouldn't print OK.
+ * 2. If stack_a is empty (pb pb...), is_sorted() returns true, so
+ * we should also check if stack_b is empty.
  */
 void	print_result(t_stack *stack_a, t_stack *stack_b)
 {
