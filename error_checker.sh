@@ -45,7 +45,7 @@ else
 fi
 if [[ $tmpExitCode != 255 ]]
 then
-	echo "Exit code should be 255."
+	echo -e "${RED}Exit code should be 255.${NC}"
 fi
 echo ""
 
@@ -63,7 +63,7 @@ else
 fi
 if [[ $tmpExitCode != 0 ]]
 then
-	echo "Exit code should be 0."
+	echo -e "${RED}Exit code should be 0.${NC}"
 fi
 echo ""
 
@@ -81,7 +81,7 @@ else
 fi
 if [[ $tmpExitCode != 255 ]]
 then
-	echo "Exit code should be 255."
+	echo -e "${RED}Exit code should be 255.${NC}"
 fi
 echo ""
 
@@ -99,7 +99,7 @@ else
 fi
 if [[ $tmpExitCode != 255 ]]
 then
-	echo "Exit code should be 255."
+	echo -e "${RED}Exit code should be 255.${NC}"
 fi
 echo ""
 
@@ -116,7 +116,7 @@ else
 fi
 if [[ $tmpExitCode != 0 ]]
 then
-	echo "Exit code should be 0."
+	echo -e "${RED}Exit code should be 0.${NC}"
 fi
 echo ""
 
@@ -133,7 +133,7 @@ else
 fi
 if [[ $tmpExitCode != 0 ]]
 then
-	echo "Exit code should be 0."
+	echo -e "${RED}Exit code should be 0.${NC}"
 fi
 echo ""
 
@@ -152,7 +152,7 @@ else
 fi
 if [[ $tmpExitCode != 0 ]]
 then
-	echo "Exit code should be 0."
+	echo -e "${RED}Exit code should be 0.${NC}"
 fi
 echo ""
 
@@ -170,7 +170,7 @@ else
 fi
 if [[ $tmpExitCode != 255 ]]
 then
-	echo "Exit code should be 255."
+	echo -e "${RED}Exit code should be 255.${NC}"
 fi
 echo ""
 
@@ -187,7 +187,7 @@ else
 fi
 if [[ $tmpExitCode != 0 ]]
 then
-	echo "Exit code should be 0."
+	echo -e "${RED}Exit code should be 0.${NC}"
 fi
 echo ""
 
@@ -204,7 +204,7 @@ else
 fi
 if [[ $tmpExitCode != 0 ]]
 then
-	echo "Exit code should be 0."
+	echo -e "${RED}Exit code should be 0.${NC}"
 fi
 echo ""
 
@@ -222,7 +222,7 @@ else
 fi
 if [[ $tmpExitCode != 255 ]]
 then
-	echo "Exit code should be 255."
+	echo -e "${RED}Exit code should be 255.${NC}"
 fi
 echo ""
 
@@ -240,7 +240,7 @@ else
 fi
 if [[ $tmpExitCode != 255 ]]
 then
-	echo "Exit code should be 255."
+	echo -e "${RED}Exit code should be 255.${NC}"
 fi
 echo ""
 
@@ -258,7 +258,7 @@ else
 fi
 if [[ $tmpExitCode != 255 ]]
 then
-	echo "Exit code should be 255."
+	echo -e "${RED}Exit code should be 255.${NC}"
 fi
 echo ""
 
@@ -276,7 +276,7 @@ else
 fi
 if [[ $tmpExitCode != 255 ]]
 then
-	echo "Exit code should be 255."
+	echo -e "${RED}Exit code should be 255.${NC}"
 fi
 echo ""
 
@@ -294,7 +294,7 @@ else
 fi
 if [[ $tmpExitCode != 255 ]]
 then
-	echo "Exit code should be 255."
+	echo -e "${RED}Exit code should be 255.${NC}"
 fi
 echo ""
 
@@ -312,7 +312,7 @@ else
 fi
 if [[ $tmpExitCode != 255 ]]
 then
-	echo "Exit code should be 255."
+	echo -e "${RED}Exit code should be 255.${NC}"
 fi
 echo ""
 
@@ -330,7 +330,7 @@ else
 fi
 if [[ $tmpExitCode != 255 ]]
 then
-	echo "Exit code should be 255."
+	echo -e "${RED}Exit code should be 255.${NC}"
 fi
 echo ""
 
@@ -348,7 +348,7 @@ else
 fi
 if [[ $tmpExitCode != 255 ]]
 then
-	echo "Exit code should be 255."
+	echo -e "${RED}Exit code should be 255.${NC}"
 fi
 echo ""
 
@@ -365,7 +365,7 @@ else
 fi
 if [[ $tmpExitCode != 0 ]]
 then
-	echo "Exit code should be 0."
+	echo -e "${RED}Exit code should be 0.${NC}"
 fi
 echo ""
 
@@ -382,7 +382,7 @@ else
 fi
 if [[ $tmpExitCode != 0 ]]
 then
-	echo "Exit code should be 0."
+	echo -e "${RED}Exit code should be 0.${NC}"
 fi
 echo ""
 
@@ -399,7 +399,7 @@ else
 fi
 if [[ $tmpExitCode != 0 ]]
 then
-	echo "Exit code should be 0."
+	echo -e "${RED}Exit code should be 0.${NC}"
 fi
 echo ""
 
@@ -432,7 +432,7 @@ else
 fi
 if [[ $tmpExitCode != 0 ]]
 then
-	echo "Exit code should be 0."
+	echo -e "${RED}Exit code should be 0.${NC}"
 fi
 echo ""
 
@@ -454,7 +454,7 @@ else
 fi
 if [[ $tmpExitCode != 255 ]]
 then
-	echo "Exit code should be 255."
+	echo -e "${RED}Exit code should be 255.${NC}"
 fi
 echo ""
 
@@ -481,7 +481,7 @@ else
 fi
 if [[ $tmpExitCode != 0 ]]
 then
-	echo "Exit code should be 0."
+	echo -e "${RED}Exit code should be 0.${NC}"
 fi
 echo ""
 
@@ -509,7 +509,7 @@ else
 fi
 if [[ $tmpExitCode != 0 ]]
 then
-	echo "Exit code should be 0."
+	echo -e "${RED}Exit code should be 0.${NC}"
 fi
 echo ""
 
@@ -532,7 +532,7 @@ else
 fi
 if [[ $tmpExitCode != 0 ]]
 then
-	echo "Exit code should be 0."
+	echo -e "${RED}Exit code should be 0.${NC}"
 fi
 echo ""
 
@@ -555,7 +555,7 @@ else
 fi
 if [[ $tmpExitCode != 255 ]]
 then
-	echo "Exit code should be 255."
+	echo -e "${RED}Exit code should be 255.${NC}"
 fi
 echo ""
 
@@ -578,7 +578,7 @@ else
 fi
 if [[ $tmpExitCode != 255 ]]
 then
-	echo "Exit code should be 255."
+	echo -e "${RED}Exit code should be 255.${NC}"
 fi
 echo ""
 
@@ -601,7 +601,7 @@ else
 fi
 if [[ $tmpExitCode != 255 ]]
 then
-	echo "Exit code should be 255."
+	echo -e "${RED}Exit code should be 255.${NC}"
 fi
 echo ""
 
@@ -623,7 +623,7 @@ else
 fi
 if [[ $tmpExitCode != 0 ]]
 then
-	echo "Exit code should be 0."
+	echo -e "${RED}Exit code should be 0.${NC}"
 fi
 echo ""
 
@@ -645,7 +645,7 @@ else
 fi
 if [[ $tmpExitCode != 255 ]]
 then
-	echo "Exit code should be 255."
+	echo -e "${RED}Exit code should be 255.${NC}"
 fi
 echo ""
 
@@ -671,7 +671,7 @@ echo ""
 #fi
 #if [[ $tmpExitCode != 0 ]]
 #then
-#	echo "Exit code should be 0."
+#	echo -e "${RED}Exit code should be 0.${NC}"
 #fi
 #echo ""
 
