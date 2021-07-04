@@ -642,7 +642,7 @@ then
 	if [[ $(cat -e /tmp/Error) != 'Error$' ]]
 	then
 		echo -e "${RED}NOT OK:${NC}"
-		echo "Whoops. 'sa${BLU}EOF${NC}' is not a valid operation."
+		echo -e "Whoops. 'sa${BLU}EOF${NC}' is not a valid operation."
 		echo "'Error\n' should be printed on stderr."
 	else
 		echo -e "${GRN}OK.${NC}"
