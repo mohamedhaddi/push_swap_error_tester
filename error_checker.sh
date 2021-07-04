@@ -403,6 +403,24 @@ then
 fi
 echo ""
 
+echo "Test:"
+echo -e "${LGRN}./push_swap${NC}"
+./push_swap 1>/tmp/Output 2>/tmp/Error
+tmpExitCode=$?
+if [[ -s /tmp/Output ]] || [[ -s /tmp/Error ]]
+then
+	echo -e "${RED}NOT OK:${NC}"
+	echo "You should print nothing, neither on stdout,"
+	echo "nor on stderr, nor take from stdin."
+else
+	echo -e "${GRN}OK.${NC}"
+fi
+if [[ $tmpExitCode != 0 ]]
+then
+	echo -e "${RED}Exit code should be 0.${NC}"
+fi
+echo ""
+
 ############################################
 # Check some errors in the checker program #
 ############################################
@@ -676,3 +694,100 @@ do
 	fi
 	echo ""
 done
+
+# ./checker 1
+# pb
+# EOF
+# should print KO
+
+echo "Test:"
+echo "Passing pb to an argument list of size 1."
+echo -e "${LGRN}echo -e \"pb\" | ./checker 1${NC}"
+echo -e "pb" | ./checker 1 1>/tmp/Output 2>/dev/null
+tmpExitCode=$?
+if [[ $(cat -e /tmp/Output) != 'KO$' ]]
+then
+	echo -e "${RED}NOT OK:${NC}"
+	echo "The one and only element of stack A was pushed to stack B,"
+	echo "Stack A is now empty and 'KO\n' should be returned on stdout."
+else
+	echo -e "${GRN}OK.${NC}"
+fi
+if [[ $tmpExitCode != 0 ]]
+then
+	echo -e "${RED}Exit code should be 0.${NC}"
+fi
+echo ""
+
+# ./checker 1
+# pb
+# pb
+# EOF
+# should print KO
+
+echo "Test:"
+echo "Passing two pb operations to an argument list of size 1."
+echo -e "${LGRN}echo -e \"pb\npb\" | ./checker 1${NC}"
+echo -e "pb\npb" | ./checker 1 1>/tmp/Output 2>/dev/null
+tmpExitCode=$?
+if [[ $(cat -e /tmp/Output) != 'KO$' ]]
+then
+	echo -e "${RED}NOT OK:${NC}"
+	echo "The one and only element of stack A was pushed to stack B,"
+	echo "Stack A is now empty and 'KO\n' should be returned on stdout."
+else
+	echo -e "${GRN}OK.${NC}"
+fi
+if [[ $tmpExitCode != 0 ]]
+then
+	echo -e "${RED}Exit code should be 0.${NC}"
+fi
+echo ""
+
+# ./checker 1
+# pb
+# pb
+# pa
+# EOF
+# should print OK
+
+echo "Test:"
+echo "Passing two pb operations and then pa to an argument list of size 1."
+echo -e "${LGRN}echo -e \"pb\npb\npa\" | ./checker 1${NC}"
+echo -e "pb\npb\npa" | ./checker 1 1>/tmp/Output 2>/dev/null
+tmpExitCode=$?
+if [[ $(cat -e /tmp/Output) != 'OK$' ]]
+then
+	echo -e "${RED}NOT OK:${NC}"
+	echo "The one and only element of stack A is first pushed to B,"
+	echo "and lastly pushed back to A. 'OK\n' should be returned on stdout."
+else
+	echo -e "${GRN}OK.${NC}"
+fi
+if [[ $tmpExitCode != 0 ]]
+then
+	echo -e "${RED}Exit code should be 0.${NC}"
+fi
+echo ""
+
+# ./checker
+# nothing should happen
+
+echo "Test:"
+echo "Not passing anything to an empty argument list."
+echo -e "${LGRN}./checker${NC}"
+./checker 1>/tmp/Output 2>/tmp/Error
+tmpExitCode=$?
+if [[ -s /tmp/Output ]] || [[ -s /tmp/Error ]]
+then
+	echo -e "${RED}NOT OK:${NC}"
+	echo "You should print nothing, neither on stdout,"
+	echo "nor on stderr, nor take from stdin."
+else
+	echo -e "${GRN}OK.${NC}"
+fi
+if [[ $tmpExitCode != 0 ]]
+then
+	echo -e "${RED}Exit code should be 0.${NC}"
+fi
+echo ""
