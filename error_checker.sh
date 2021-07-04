@@ -650,28 +650,29 @@ fi
 echo ""
 
 # ./checker 1
-# any ops doesn't matter
+# any ops except pb should work (except if after pb a pa was performed).
 # EOF
 # should print OK
 
-# chi loop hna:
-#echo "Test:"
-#echo "Passing arbitrary operations to an argument list of size one."
-#echo -e "${LGRN}echo -e \"sa\npb\npb\npa\" | ./checker 2 1 3 4 5${NC}"
-#echo -e "sa\npb\npb\npa" | ./checker 2 1 3 4 5 1>/tmp/Output 2>/dev/null
-#tmpExitCode=$?
-#if [[ $(cat -e /tmp/Output) != 'KO$' ]]
-#then
-#	echo -e "${RED}NOT OK:${NC}"
-#	echo "This is an error, Stack A has been so far sorted,"
-#	echo "but not all stack elements have been pushed to it,"
-#	echo "one 'pa' operation is still missing. 'KO\n' should be printed on stdout."
-#else
-#	echo -e "${GRN}OK.${NC}"
-#fi
-#if [[ $tmpExitCode != 0 ]]
-#then
-#	echo -e "${RED}Exit code should be 0.${NC}"
-#fi
-#echo ""
-
+ops=(sa sb ss pa ra rb rr rra)
+for op in "${ops[@]}"
+do
+	echo "Test:"
+	echo "Passing $op to an argument list of size 1."
+	echo -e "${LGRN}echo -e \"$op\" | ./checker 1${NC}"
+	echo -e "$op" | ./checker 1 1>/tmp/Output 2>/dev/null
+	tmpExitCode=$?
+	if [[ $(cat -e /tmp/Output) != 'OK$' ]]
+	then
+		echo -e "${RED}NOT OK:${NC}"
+		echo "Operating $op shouldn't affect this stack,"
+		echo "'OK\n' should be returned on stdout."
+	else
+		echo -e "${GRN}OK.${NC}"
+	fi
+	if [[ $tmpExitCode != 0 ]]
+	then
+		echo -e "${RED}Exit code should be 0.${NC}"
+	fi
+	echo ""
+done
