@@ -6,10 +6,9 @@ A small tester for 42 school's [push_swap project](./en.subject.pdf) that's focu
 
 This tester doesn't actually test your operations output, there are plenty of other testers for checking your score/performance, these are some of my favorites:
 
-lmalki-h/push_swap_tester
-- [lmalki-h](https://github.com/lmalki-h/push_swap_tester)
-- [minckim42](https://github.com/minckim42/push_swap_tester)
-- [LeoFu9487](https://github.com/LeoFu9487/push_swap_tester)
+- [lmalki-h/push_swap_tester](https://github.com/lmalki-h/push_swap_tester)
+- [minckim42/push_swap_tester](https://github.com/minckim42/push_swap_tester)
+- [LeoFu9487/push_swap_tester](https://github.com/LeoFu9487/push_swap_tester)
 
 # Usage
 
