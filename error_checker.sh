@@ -39,7 +39,7 @@ fi
 	
 if [[ $1 == "--push_swap" ]] || [[ $1 == "-p" ]] || [[ $1 == "--all" ]] || [[ $1 == "-a" ]]
 then
-	echo -e "${YLW}${UNDRLN}CHECKING IF PUSH_SWAP CORRECTLY FAILS ON INVALID ARGUMENTS:${NC}"
+	echo -e "${YLW}${UNDRLN}CHECKING IF PUSH_SWAP CORRECTLY HANDLES ARGUMENTS:${NC}"
 	echo ""
 	
 	echo -e "${YLW}make${NC}"
@@ -449,7 +449,7 @@ fi
 	
 if [[ $1 == "--checker" ]] || [[ $1 == "-c" ]] || [[ $1 == "--all" ]] || [[ $1 == "-a" ]]
 then
-	echo -e "${YLW}${UNDRLN}CHECKING IF THE CHECKER CORRECTLY FAILS ON INVALID OPERATIONS.${NC}"
+	echo -e "${YLW}${UNDRLN}CHECKING IF THE CHECKER CORRECTLY HANDLES OPERATIONS.${NC}"
 	echo ""
 	
 	echo -e "${YLW}make bonus${NC}"
