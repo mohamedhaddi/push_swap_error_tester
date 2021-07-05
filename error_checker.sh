@@ -60,7 +60,7 @@ then
 	then
 		echo -e "${RED}NOT OK:${NC}"
 		echo "An empty argument is an error."
-		echo "You should return 'Error\n' on stderr."
+		echo -e "You should return '${UNDRLN}Error${BLU}\\\n${NC}' on ${UNDRLN}stderr${NC}."
 	else
 		echo -e "${GRN}OK.${NC}"
 	fi
@@ -96,7 +96,7 @@ then
 	then
 		echo -e "${RED}NOT OK:${NC}"
 		echo "Number five is a duplicate."
-		echo "You should return 'Error\n' on stderr."
+		echo -e "You should return '${UNDRLN}Error${BLU}\\\n${NC}' on ${UNDRLN}stderr${NC}."
 	else
 		echo -e "${GRN}OK.${NC}"
 	fi
@@ -114,7 +114,7 @@ then
 	then
 		echo -e "${RED}NOT OK:${NC}"
 		echo "A plus sign should only be followed by a number."
-		echo "You should return 'Error\n' on stderr."
+		echo -e "You should return '${UNDRLN}Error${BLU}\\\n${NC}' on ${UNDRLN}stderr${NC}."
 	else
 		echo -e "${GRN}OK.${NC}"
 	fi
@@ -185,7 +185,7 @@ then
 	then
 		echo -e "${RED}NOT OK:${NC}"
 		echo "Two zeros passed as arguments, they are duplicates."
-		echo "You should return 'Error\n' on stderr."
+		echo -e "You should return '${UNDRLN}Error${BLU}\\\n${NC}' on ${UNDRLN}stderr${NC}."
 	else
 		echo -e "${GRN}OK.${NC}"
 	fi
@@ -237,7 +237,7 @@ then
 	then
 		echo -e "${RED}NOT OK:${NC}"
 		echo "A minus sign should only be followed by a number."
-		echo "You should return 'Error\n' on stderr."
+		echo -e "You should return '${UNDRLN}Error${BLU}\\\n${NC}' on ${UNDRLN}stderr${NC}."
 	else
 		echo -e "${GRN}OK.${NC}"
 	fi
@@ -255,7 +255,7 @@ then
 	then
 		echo -e "${RED}NOT OK:${NC}"
 		echo "A plus sign should only be followed by a number."
-		echo "You should return 'Error\n' on stderr."
+		echo -e "You should return '${UNDRLN}Error${BLU}\\\n${NC}' on ${UNDRLN}stderr${NC}."
 	else
 		echo -e "${GRN}OK.${NC}"
 	fi
@@ -273,7 +273,7 @@ then
 	then
 		echo -e "${RED}NOT OK:${NC}"
 		echo "Non-numeric argument."
-		echo "You should return 'Error\n' on stderr."
+		echo -e "You should return '${UNDRLN}Error${BLU}\\\n${NC}' on ${UNDRLN}stderr${NC}."
 	else
 		echo -e "${GRN}OK.${NC}"
 	fi
@@ -291,7 +291,7 @@ then
 	then
 		echo -e "${RED}NOT OK:${NC}"
 		echo "Non-numeric argument."
-		echo "You should return 'Error\n' on stderr."
+		echo -e "You should return '${UNDRLN}Error${BLU}\\\n${NC}' on ${UNDRLN}stderr${NC}."
 	else
 		echo -e "${GRN}OK.${NC}"
 	fi
@@ -309,7 +309,7 @@ then
 	then
 		echo -e "${RED}NOT OK:${NC}"
 		echo "Argument is bigger than integer."
-		echo "You should return 'Error\n' on stderr."
+		echo -e "You should return '${UNDRLN}Error${BLU}\\\n${NC}' on ${UNDRLN}stderr${NC}."
 	else
 		echo -e "${GRN}OK.${NC}"
 	fi
@@ -327,7 +327,7 @@ then
 	then
 		echo -e "${RED}NOT OK:${NC}"
 		echo "Argument is bigger than integer."
-		echo "You should return 'Error\n' on stderr."
+		echo -e "You should return '${UNDRLN}Error${BLU}\\\n${NC}' on ${UNDRLN}stderr${NC}."
 	else
 		echo -e "${GRN}OK.${NC}"
 	fi
@@ -345,7 +345,7 @@ then
 	then
 		echo -e "${RED}NOT OK:${NC}"
 		echo "Argument is bigger than integer."
-		echo "You should return 'Error\n' on stderr."
+		echo -e "You should return '${UNDRLN}Error${BLU}\\\n${NC}' on ${UNDRLN}stderr${NC}."
 	else
 		echo -e "${GRN}OK.${NC}"
 	fi
@@ -363,7 +363,7 @@ then
 	then
 		echo -e "${RED}NOT OK:${NC}"
 		echo "Argument is bigger than integer."
-		echo "You should return 'Error\n' on stderr."
+		echo -e "You should return '${UNDRLN}Error${BLU}\\\n${NC}' on ${UNDRLN}stderr${NC}."
 	else
 		echo -e "${GRN}OK.${NC}"
 	fi
@@ -421,6 +421,237 @@ then
 	if [[ $tmpExitCode != 0 ]]
 	then
 		echo -e "${RED}Exit code should be 0.${NC}"
+	fi
+	echo ""
+	
+	echo "Test:"
+	echo -e "${LGRN}./push_swap 0-1${NC}"
+	./push_swap 0-1 1>/dev/null 2>/tmp/Error
+	tmpExitCode=$?
+	if [[ $(cat -e /tmp/Error) != 'Error$' ]]
+	then
+		echo -e "${RED}NOT OK:${NC}"
+		echo "This is not a valid argument."
+		echo -e "You should return '${UNDRLN}Error${BLU}\\\n${NC}' on ${UNDRLN}stderr${NC}."
+	else
+		echo -e "${GRN}OK.${NC}"
+	fi
+	if [[ $tmpExitCode != 255 ]]
+	then
+		echo -e "${RED}Exit code should be 255.${NC}"
+	fi
+	echo ""
+	
+	echo "Test:"
+	echo -e "${LGRN}./push_swap 0-11${NC}"
+	./push_swap 0-11 1>/dev/null 2>/tmp/Error
+	tmpExitCode=$?
+	if [[ $(cat -e /tmp/Error) != 'Error$' ]]
+	then
+		echo -e "${RED}NOT OK:${NC}"
+		echo "This is not a valid argument."
+		echo -e "You should return '${UNDRLN}Error${BLU}\\\n${NC}' on ${UNDRLN}stderr${NC}."
+	else
+		echo -e "${GRN}OK.${NC}"
+	fi
+	if [[ $tmpExitCode != 255 ]]
+	then
+		echo -e "${RED}Exit code should be 255.${NC}"
+	fi
+	echo ""
+	
+	echo "Test:"
+	echo -e "${LGRN}./push_swap 00-11${NC}"
+	./push_swap 00-11 1>/dev/null 2>/tmp/Error
+	tmpExitCode=$?
+	if [[ $(cat -e /tmp/Error) != 'Error$' ]]
+	then
+		echo -e "${RED}NOT OK:${NC}"
+		echo "This is not a valid argument."
+		echo -e "You should return '${UNDRLN}Error${BLU}\\\n${NC}' on ${UNDRLN}stderr${NC}."
+	else
+		echo -e "${GRN}OK.${NC}"
+	fi
+	if [[ $tmpExitCode != 255 ]]
+	then
+		echo -e "${RED}Exit code should be 255.${NC}"
+	fi
+	echo ""
+	
+	echo "Test:"
+	echo -e "${LGRN}./push_swap 000-11${NC}"
+	./push_swap 000-11 1>/dev/null 2>/tmp/Error
+	tmpExitCode=$?
+	if [[ $(cat -e /tmp/Error) != 'Error$' ]]
+	then
+		echo -e "${RED}NOT OK:${NC}"
+		echo "This is not a valid argument."
+		echo -e "You should return '${UNDRLN}Error${BLU}\\\n${NC}' on ${UNDRLN}stderr${NC}."
+	else
+		echo -e "${GRN}OK.${NC}"
+	fi
+	if [[ $tmpExitCode != 255 ]]
+	then
+		echo -e "${RED}Exit code should be 255.${NC}"
+	fi
+	echo ""
+	
+	echo "Test:"
+	echo -e "${LGRN}./push_swap 0+1${NC}"
+	./push_swap 0+1 1>/dev/null 2>/tmp/Error
+	tmpExitCode=$?
+	if [[ $(cat -e /tmp/Error) != 'Error$' ]]
+	then
+		echo -e "${RED}NOT OK:${NC}"
+		echo "This is not a valid argument."
+		echo -e "You should return '${UNDRLN}Error${BLU}\\\n${NC}' on ${UNDRLN}stderr${NC}."
+	else
+		echo -e "${GRN}OK.${NC}"
+	fi
+	if [[ $tmpExitCode != 255 ]]
+	then
+		echo -e "${RED}Exit code should be 255.${NC}"
+	fi
+	echo ""
+	
+	echo "Test:"
+	echo -e "${LGRN}./push_swap 0+11${NC}"
+	./push_swap 0+11 1>/dev/null 2>/tmp/Error
+	tmpExitCode=$?
+	if [[ $(cat -e /tmp/Error) != 'Error$' ]]
+	then
+		echo -e "${RED}NOT OK:${NC}"
+		echo "This is not a valid argument."
+		echo -e "You should return '${UNDRLN}Error${BLU}\\\n${NC}' on ${UNDRLN}stderr${NC}."
+	else
+		echo -e "${GRN}OK.${NC}"
+	fi
+	if [[ $tmpExitCode != 255 ]]
+	then
+		echo -e "${RED}Exit code should be 255.${NC}"
+	fi
+	echo ""
+	
+	echo "Test:"
+	echo -e "${LGRN}./push_swap 00+11${NC}"
+	./push_swap 00+11 1>/dev/null 2>/tmp/Error
+	tmpExitCode=$?
+	if [[ $(cat -e /tmp/Error) != 'Error$' ]]
+	then
+		echo -e "${RED}NOT OK:${NC}"
+		echo "This is not a valid argument."
+		echo -e "You should return '${UNDRLN}Error${BLU}\\\n${NC}' on ${UNDRLN}stderr${NC}."
+	else
+		echo -e "${GRN}OK.${NC}"
+	fi
+	if [[ $tmpExitCode != 255 ]]
+	then
+		echo -e "${RED}Exit code should be 255.${NC}"
+	fi
+	echo ""
+	
+	echo "Test:"
+	echo -e "${LGRN}./push_swap 000+11${NC}"
+	./push_swap 000+11 1>/dev/null 2>/tmp/Error
+	tmpExitCode=$?
+	if [[ $(cat -e /tmp/Error) != 'Error$' ]]
+	then
+		echo -e "${RED}NOT OK:${NC}"
+		echo "This is not a valid argument."
+		echo -e "You should return '${UNDRLN}Error${BLU}\\\n${NC}' on ${UNDRLN}stderr${NC}."
+	else
+		echo -e "${GRN}OK.${NC}"
+	fi
+	if [[ $tmpExitCode != 255 ]]
+	then
+		echo -e "${RED}Exit code should be 255.${NC}"
+	fi
+	echo ""
+	
+	echo "Test:"
+	echo -e "${LGRN}./push_swap --1${NC}"
+	./push_swap --1 1>/dev/null 2>/tmp/Error
+	tmpExitCode=$?
+	if [[ $(cat -e /tmp/Error) != 'Error$' ]]
+	then
+		echo -e "${RED}NOT OK:${NC}"
+		echo "This is not a valid argument."
+		echo -e "You should return '${UNDRLN}Error${BLU}\\\n${NC}' on ${UNDRLN}stderr${NC}."
+	else
+		echo -e "${GRN}OK.${NC}"
+	fi
+	if [[ $tmpExitCode != 255 ]]
+	then
+		echo -e "${RED}Exit code should be 255.${NC}"
+	fi
+	echo ""
+	
+	echo "Test:"
+	echo -e "${LGRN}./push_swap -001${NC}"
+	./push_swap -001 1>/dev/null 2>/tmp/Error
+	tmpExitCode=$?
+	if [[ $(cat -e /tmp/Error) == 'Error$' ]]
+	then
+		echo -e "${RED}NOT OK:${NC}"
+		echo "This is not an error, all trailing zeros must be stripped."
+	else
+		echo -e "${GRN}OK.${NC}"
+	fi
+	if [[ $tmpExitCode != 0 ]]
+	then
+		echo -e "${RED}Exit code should be 0.${NC}"
+	fi
+	echo ""
+	
+	echo "Test:"
+	echo -e "${LGRN}./push_swap -01${NC}"
+	./push_swap -01 1>/dev/null 2>/tmp/Error
+	tmpExitCode=$?
+	if [[ $(cat -e /tmp/Error) == 'Error$' ]]
+	then
+		echo -e "${RED}NOT OK:${NC}"
+		echo "This is not an error, all trailing zeros must be stripped."
+	else
+		echo -e "${GRN}OK.${NC}"
+	fi
+	if [[ $tmpExitCode != 0 ]]
+	then
+		echo -e "${RED}Exit code should be 0.${NC}"
+	fi
+	echo ""
+	
+	echo "Test:"
+	echo -e "${LGRN}./push_swap -00000000000000000000001${NC}"
+	./push_swap -00000000000000000000001 1>/dev/null 2>/tmp/Error
+	tmpExitCode=$?
+	if [[ $(cat -e /tmp/Error) == 'Error$' ]]
+	then
+		echo -e "${RED}NOT OK:${NC}"
+		echo "This is not an error, all trailing zeros must be stripped."
+	else
+		echo -e "${GRN}OK.${NC}"
+	fi
+	if [[ $tmpExitCode != 0 ]]
+	then
+		echo -e "${RED}Exit code should be 0.${NC}"
+	fi
+	echo ""
+	
+	echo "Test:"
+	echo -e "${LGRN}./push_swap -0000000000000000000001 -1${NC}"
+	./push_swap -0000000000000000000001 -1 1>/dev/null 2>/tmp/Error
+	tmpExitCode=$?
+	if [[ $(cat -e /tmp/Error) != 'Error$' ]]
+	then
+		echo -e "${RED}NOT OK:${NC}"
+		echo "Duplicate -1!"
+		echo -e "You should return '${UNDRLN}Error${BLU}\\\n${NC}' on ${UNDRLN}stderr${NC}."
+	else
+		echo -e "${GRN}OK.${NC}"
+	fi
+	if [[ $tmpExitCode != 255 ]]
+	then
+		echo -e "${RED}Exit code should be 255.${NC}"
 	fi
 	echo ""
 	
@@ -496,7 +727,7 @@ then
 	then
 		echo -e "${RED}NOT OK:${NC}"
 		echo "A newline isn't a valid operation"
-		echo "'Error\n' should be printed on stderr."
+		echo -e "You should return '${UNDRLN}Error${BLU}\\\n${NC}' on ${UNDRLN}stderr${NC}."
 	else
 		echo -e "${GRN}OK.${NC}"
 	fi
@@ -597,7 +828,7 @@ then
 	then
 		echo -e "${RED}NOT OK:${NC}"
 		echo "Whoops. 's\n' is not a valid operation."
-		echo "'Error\n' should be printed on stderr."
+		echo -e "You should return '${UNDRLN}Error${BLU}\\\n${NC}' on ${UNDRLN}stderr${NC}."
 	else
 		echo -e "${GRN}OK.${NC}"
 	fi
@@ -620,7 +851,7 @@ then
 	then
 		echo -e "${RED}NOT OK:${NC}"
 		echo "Whoops. 'sas\n' is not a valid operation."
-		echo "'Error\n' should be printed on stderr."
+		echo -e "You should return '${UNDRLN}Error${BLU}\\\n${NC}' on ${UNDRLN}stderr${NC}."
 	else
 		echo -e "${GRN}OK.${NC}"
 	fi
@@ -643,7 +874,7 @@ then
 	then
 		echo -e "${RED}NOT OK:${NC}"
 		echo -e "Whoops. 'sa${BLU}EOF${NC}' is not a valid operation."
-		echo "'Error\n' should be printed on stderr."
+		echo -e "You should return '${UNDRLN}Error${BLU}\\\n${NC}' on ${UNDRLN}stderr${NC}."
 	else
 		echo -e "${GRN}OK.${NC}"
 	fi
@@ -687,7 +918,7 @@ then
 	then
 		echo -e "${RED}NOT OK:${NC}"
 		echo "Newline isn't a valid operation."
-		echo "'Error\n' should be printed on stderr."
+		echo -e "You should return '${UNDRLN}Error${BLU}\\\n${NC}' on ${UNDRLN}stderr${NC}."
 	else
 		echo -e "${GRN}OK.${NC}"
 	fi
