@@ -1,6 +1,7 @@
 # push_swap error tester
 
-A small tester for 42 school's [push_swap project](./en.subject.pdf) that's focused on checking invalid arguments to the `push_swap` program and invalid input to the `checker` program, based on the real checker behavior (specifically tested with checker_Mac). \
+A small tester for 42 school's [push_swap project](./en.subject.pdf) that's focused on checking invalid arguments to the `push_swap` program and invalid input to the `checker` program, based on the real checker behavior (specifically tested with checker_Mac).
+
 This tester doesn't actually test the operations, only errors. \
 There are plenty of other testers for score/performance, here are some of my favorites:
 
