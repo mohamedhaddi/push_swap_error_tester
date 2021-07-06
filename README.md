@@ -1,6 +1,6 @@
 # push_swap error tester
 
-A small tester for 42 school's [push_swap project](./en.subject.pdf) that's focused on checking if the arguments to the `push_swap` program are well handled, as well as the operations input to the `checker` program, based on the real checker behavior at validating arguments and operations. (It was specifically tested with checker_Mac).
+A small tester for 42 school's [push_swap project](./subject/en.subject.pdf) that's focused on checking if the arguments to the `push_swap` program are well handled, as well as the operations input to the `checker` program, based on the real checker behavior at validating arguments and operations. (It was specifically tested with checker_Mac).
 
 <img width="396" alt="image" src="https://user-images.githubusercontent.com/6943864/124407851-d10d0600-dd3c-11eb-87a9-e92983ff9e74.png"> <img width="415" alt="image" src="https://user-images.githubusercontent.com/6943864/124407888-e2eea900-dd3c-11eb-99be-8ed86cdf3271.png">
 
