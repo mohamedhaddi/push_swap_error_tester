@@ -14,7 +14,7 @@ This tester doesn't actually test your operations output, there are plenty of ot
 
 Copy `error_checker.sh` into the root of your project, and make sure that the name of the binaries are `push_swap` and `checker`. (If you have a Makefile, the script will make them for you).
 
-Run the script with any of the following options:
+Run the bash script with any of the following options:
 
 ```
 -a, --all		check errors on both push_swap and checker programs.
