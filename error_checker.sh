@@ -43,7 +43,8 @@ then
 	echo ""
 	
 	echo -e "${YLW}make${NC}"
-	make
+	make re
+	make # in case no rule `re` was found
 	echo ""
 	
 	if [[ ! -f ./push_swap ]]
